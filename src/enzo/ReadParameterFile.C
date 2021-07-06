@@ -1368,6 +1368,12 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line,"MagneticSupernovaEnergy = %"FSYM, &MagneticSupernovaEnergy);
     ret += sscanf(line,"MagneticSupernovaDuration = %"FSYM, &MagneticSupernovaDuration);
 
+    // Parameters for Neutron Star Merger from PopIII stars
+    ​ret += sscanf(line, "PopIII_NeutronStarMergers  = %"ISYM, &PopIII_NeutronStarMergers);
+    ​ret += sscanf(line, "PopIII_NSMParticleID       = %"ISYM, &PopIII_NSMParticleID);
+    ​ret += sscanf(line, "PopIII_NSMExplosionEnergy  = %"GSYM, &PopIII_NSMExplosionEnergy);
+    ​ret += sscanf(line, "PopIII_NSMDelayTime        = %"FSYM, &PopIII_NSMDelayTime);
+
     /* If the dummy char space was used, then make another. */
 
     if (*dummy != 0) {

@@ -516,8 +516,10 @@ typedef long long int   HDF5_hid_t;
 #define PARTICLE_TYPE_COLOR_STAR     9
 #define PARTICLE_TYPE_SIMPLE_SOURCE 10
 #define PARTICLE_TYPE_RAD           11
+#define PARTICLE_TYPE_POPIII_BINARY 12
+#define PARTICLE_TYPE_NEUTRON_STAR_BINARY 13
 
-#define CHILDRENPERPARENT           12
+#define CHILDRENPERPARENT           14
 
 /* Splitting particles more than 4 times can induce numerical
    artifacts */
@@ -546,6 +548,8 @@ typedef long long int   HDF5_hid_t;
 #define SINGLE_SUPERNOVA 12
 #define DISTR_FEEDBACK 13
 #define MOM_STAR 14
+#define POPIII_BINARY 15
+#define NS_BINARY 16
 
 #define STARMAKE_METHOD(A) (StarParticleCreation >> (A) & 1)
 #define STARFEED_METHOD(A) (StarParticleFeedback >> (A) & 1)

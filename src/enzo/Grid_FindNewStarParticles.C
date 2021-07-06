@@ -44,6 +44,8 @@ int grid::FindNewStarParticles(int level)
 	ParticleType[i] == -PARTICLE_TYPE_COLOR_STAR ||
 	ParticleType[i] == -PARTICLE_TYPE_SIMPLE_SOURCE ||
 	ABS(ParticleType[i]) == PARTICLE_TYPE_MBH ||
+	ParticleType[i] == -PARTICLE_TYPE_POPIII_BINARY ||
+	ParticleType[i] == -PARTICLE_TYPE_NEUTRON_STAR_BINARY ||
 	(StarParticleRadiativeFeedback == TRUE &&
 	 ParticleType[i] == PARTICLE_TYPE_STAR)) {
 
@@ -73,6 +75,10 @@ int grid::FindNewStarParticles(int level)
 	NumberOfStars++;
       }
 
+	/* Adding check for PopIIIParticleID to change Pop III star to binary system*/  
+	if (ParticleNumber[i] == PopIII_NSMParticleID) {
+		ParticleType[i] == -PARTICLE_TYPE_POPIII_BINARY
+		}
     }
 
   return SUCCESS;

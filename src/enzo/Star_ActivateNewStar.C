@@ -58,6 +58,12 @@ void Star::ActivateNewStar(FLOAT Time, float Timestep)
     case MBH:  // probably you wouldn't need this activation routine anyway (see mbh_maker)
       type = StarType;  
       break;
+    case PopIII_Binary:
+      if (Mass >= this->FinalMass) {
+        type = StarType;
+        BirthTime = (1-1e-6)*Time;
+      }
+      break;
     } // ENDSWITCH type
   } // ENDIF FORMATION
 

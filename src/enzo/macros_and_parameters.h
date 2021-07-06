@@ -519,7 +519,7 @@ typedef long long int   HDF5_hid_t;
 #define PARTICLE_TYPE_POPIII_BINARY 12
 #define PARTICLE_TYPE_NEUTRON_STAR_BINARY 13
 
-#define CHILDRENPERPARENT           14
+#define CHILDRENPERPARENT           12
 
 /* Splitting particles more than 4 times can induce numerical
    artifacts */

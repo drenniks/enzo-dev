@@ -73,6 +73,10 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
     NumberOfStars++;
   bool *AddedFeedback = new bool[NumberOfStars];
 
+  printf("Number of stars = %d \n", NumberOfStars);
+  
+  
+
   if (STARMAKE_METHOD(SINK_PARTICLE) && level == MaximumRefinementLevel)
     BigStarFormationDone = CommunicationMaxValue(BigStarFormationDone);
 
@@ -89,6 +93,15 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
   for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar)
     ThisStar->UpdatePositionVelocity();
 
+  /* Check to see if NSM model is turned on. If so, run check on Particle IDs to change particle types. */
+
+  //if (PopIII_NeutronStarMergers == 1) {
+  //  int n;
+  //  for (n = 0; n < NumberOfParticles; n++)
+  //    if (int(ParticleNumber[n]) == int(PopIII_NSMParticleID)) {
+	//			ParticleType[n] = -PARTICLE_TYPE_POPIII_BINARY;
+  //  }
+  //}
 
   /* Apply any stellar feedback onto the grids and add any gas to the
      accretion rates of the star particles */

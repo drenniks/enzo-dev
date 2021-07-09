@@ -1273,13 +1273,12 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "MagneticSupernovaRadius = %"GSYM"\n", MagneticSupernovaRadius);
   fprintf(fptr,"MagneticSupernovaEnergy = %"GSYM"\n",MagneticSupernovaEnergy);
   fprintf(fptr,"MagneticSupernovaDuration = %"GSYM"\n",MagneticSupernovaDuration);
-
+  
   /* Neutron Star Mergers from PopIII stars */
   fprintf(fptr, "PopIII_NeutronStarMergers       = %"ISYM"\n", PopIII_NeutronStarMergers);
-  ​fprintf(fptr, "PopIII_NSMParticleID            = %"ISYM"\n", PopIII_NSMParticleID);
-  ​fprintf(fptr, "PopIII_NSMExplosionEnergy       = %"GSYM"\n", PopIII_NSMExplosionEnergy);
-  ​fprintf(fptr, "PopIII_NSMDelayTime             = %"GSYM"\n", PopIII_NSMDelayTime);
-
+  fprintf(fptr, "PopIII_NSMParticleID            = %"ISYM"\n", PopIII_NSMParticleID);
+  fprintf(fptr, "PopIII_NSMExplosionEnergy       = %"GSYM"\n", PopIII_NSMExplosionEnergy);
+  fprintf(fptr, "PopIII_NSMDelayTime             = %"GSYM"\n", PopIII_NSMDelayTime);
 
   /* Output current time */
   time_t ID;

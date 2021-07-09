@@ -105,6 +105,20 @@ int Star::SetFeedbackFlag(FLOAT Time)
       this->FeedbackFlag = NO_FEEDBACK;
     break;
 
+  case PopIII_Binary:
+    if (this->type < 0) // birth
+      this->FeedbackFlag = FORMATION;
+    else if (Time > this->BirthTime + this->LifeTime) // endpoint
+      if (((this->Mass >= PISNLowerMass && this->Mass <=PISNUpperMass) ||
+      (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass)) &&
+      PopIIISupernovaExplosions == TRUE)
+  this->FeedbackFlag = POPIII_BINARY_SN;
+    else
+  this->FeedbackFlag = NO_FEEDBACK; // BH formation
+    else // main sequense
+      this->FeedbackFlag = NO_FEEDBACK;
+    break;
+
   /* For MBH particle. Even with the NO_FEEDBACK flag, 
      the particle still can act as a Radiation Source if RadiativeTransfer = 1. */  
   case MBH:

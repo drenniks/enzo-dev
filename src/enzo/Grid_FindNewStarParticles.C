@@ -33,11 +33,17 @@ int grid::FindNewStarParticles(int level)
   if (NumberOfParticles == 0)
     return SUCCESS;
 
+printf("Number of Particles = %d \n", NumberOfParticles);
+
   int i;
   Star *NewStar, *cstar;
   bool exists;
 
   for (i = 0; i < NumberOfParticles; i++)
+	printf("Particle Type = %d \n", ParticleType[i]);
+	printf("Particle number = %d \n", ParticleNumber[i]);
+	printf("PopIII_NSMParticleID = %d \n", PopIII_NSMParticleID);
+	
     if (ParticleType[i] == -PARTICLE_TYPE_SINGLE_STAR ||
 	ParticleType[i] == -PARTICLE_TYPE_BLACK_HOLE ||
 	ParticleType[i] == -PARTICLE_TYPE_CLUSTER ||
@@ -62,6 +68,8 @@ int grid::FindNewStarParticles(int level)
       if (!exists) {
 	NewStar = new Star(this, i, level);
 
+
+
 	/* If using an IMF for Pop III stars, assign the mass after
 	   merging new (massless) star particles to avoid unnecessary
 	   calls to the IMF. */
@@ -74,12 +82,14 @@ int grid::FindNewStarParticles(int level)
 	InsertStarAfter(Stars, NewStar);
 	NumberOfStars++;
       }
-
-	/* Adding check for PopIIIParticleID to change Pop III star to binary system*/  
-	if (ParticleNumber[i] == PopIII_NSMParticleID) {
-		ParticleType[i] == -PARTICLE_TYPE_POPIII_BINARY
-		}
     }
+
+	//else {
+		/* Adding check for PopIIIParticleID to change Pop III star to binary system*/ 
+	//	if (ParticleNumber[i] == PopIII_NSMParticleID) {
+	//				ParticleType[i] = PARTICLE_TYPE_POPIII_BINARY;
+	//				}
+	//}
 
   return SUCCESS;
 

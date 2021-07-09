@@ -28,6 +28,7 @@ void Star::ActivateNewStar(FLOAT Time, float Timestep)
   int StarType;
   FILE *fptr;
   if (this->IsUnborn()) {  // unborn
+    printf("Star is unborn \n");
     StarType = ABS(type);
     switch (StarType) {
     case SimpleSource:

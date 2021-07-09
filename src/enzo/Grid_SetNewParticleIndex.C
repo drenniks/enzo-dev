@@ -33,10 +33,10 @@ void grid::SetNewParticleIndex(int &NumberCount1, PINT &NumberCount2)
     //ParticleType[n] = PARTICLE_TYPE_POPIII_BINARY; // Temporarily putting this here to see if this works.
     printf("Particle type within CommunicationUpdateStarParticleCount = %d \n", ParticleType[n]);
     /* Adding check for PopIIIParticleID to change Pop III star to binary system*/ 
-	  if (int(ParticleNumber[n]) == int(PopIII_NSMParticleID)) {
-				ParticleType[n] = -PARTICLE_TYPE_POPIII_BINARY;
-    }
-    else {printf("Particle number not equal to PopIII_NSMParticleID \n");}
+	  //if (int(ParticleNumber[n]) == int(PopIII_NSMParticleID)) {
+		//		ParticleType[n] = -PARTICLE_TYPE_POPIII_BINARY;
+    //}
+    //else {printf("Particle number not equal to PopIII_NSMParticleID \n");}
 
     if (ParticleNumber[n] == INT_UNDEFINED) {
       abstype = ABS(ParticleType[n]);
@@ -49,6 +49,8 @@ void grid::SetNewParticleIndex(int &NumberCount1, PINT &NumberCount2)
       printf("New star particle index = %d (%d %d)\n",
 	     ParticleNumber[n], NumberCount1, NumberCount2);
     }
+    printf("Particle number after SetNewParticleIndex loop= %d \n", ParticleNumber[n]);
+
     
   return;
 }

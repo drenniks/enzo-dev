@@ -37,6 +37,7 @@ int CommunicationUpdateStarParticleCount(HierarchyEntry *Grids[],
 					 TopGridData *MetaData,
 					 int NumberOfGrids,
 					 int TotalStarParticleCountPrevious[]);
+int StarParticleChangeType(Star *AllStars);
 int StarParticleAddFeedback(TopGridData *MetaData, 
 			    LevelHierarchyEntry *LevelArray[], int level, 
 			    Star* &AllStars, bool* &AddedFeedback);
@@ -95,13 +96,7 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
 
   /* Check to see if NSM model is turned on. If so, run check on Particle IDs to change particle types. */
 
-  //if (PopIII_NeutronStarMergers == 1) {
-  //  int n;
-  //  for (n = 0; n < NumberOfParticles; n++)
-  //    if (int(ParticleNumber[n]) == int(PopIII_NSMParticleID)) {
-	//			ParticleType[n] = -PARTICLE_TYPE_POPIII_BINARY;
-  //  }
-  //}
+  StarParticleChangeType(AllStars);
 
   /* Apply any stellar feedback onto the grids and add any gas to the
      accretion rates of the star particles */

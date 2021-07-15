@@ -1,0 +1,54 @@
+/***********************************************************************
+/
+/  CHANGE PARTICLE TYPE
+/
+/  written by: Danielle Skinner
+/  date:       July, 2021
+/  modified1:
+/
+/  PURPOSE: Given a Particle ID number, change this particle from a Pop 
+/           III star to a Neutron Star Binary, and after the merger 
+/           takes place, change particle to BH.
+/           Checks first to see if particle has already been changed.
+/
+************************************************************************/
+
+#include "ErrorExceptions.h"
+#include "EnzoTiming.h"
+#include "performance.h"
+#include "macros_and_parameters.h"
+#include "typedefs.h"
+#include "global_data.h"
+#include "units.h"
+#include "flowdefs.h"
+#include "Fluxes.h"
+#include "GridList.h"
+#include "ExternalBoundary.h"
+#include "Grid.h"
+#include "Hierarchy.h"
+#include "LevelHierarchy.h"
+#include "TopGridData.h"
+#include "communication.h"
+#include "CommunicationUtilities.h"
+
+int StarParticleChangeType(Star *AllStars)
+// check to see if particle id parameter is negative. if so return success
+{
+    Star *ThisStar;
+
+    if (PopIII_NeutronStarMergers == 1){
+        if (PopIII_NSMParticleID == -1){
+            printf("PopIII star already changed to NS system. \n");
+            return SUCCESS;
+        }
+
+        else {
+            for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar){
+                if (ThisStar->ReturnID() == PopIII_NSMParticleID){
+                    ThisStar->SetType(PARTICLE_TYPE_POPIII_BINARY);
+                    PopIII_NSMParticleID = -1;
+                }
+            }
+        }
+    }
+}

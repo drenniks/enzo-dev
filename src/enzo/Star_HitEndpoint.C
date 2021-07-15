@@ -82,13 +82,53 @@ int Star::HitEndpoint(FLOAT Time)
     } else // SN tracers (must refine)
       result = NO_DEATH;
 
+
+
     if (debug)
       printf("HitEndpoint[%"ISYM"]: type = %"ISYM", mass = %"GOUTSYM", result = %"ISYM", feedback = %"ISYM", Time = %"PSYM"/%"PSYM"\n",
 	     this->Identifier, this->type, this->Mass, result, this->FeedbackFlag, Time,
 	     this->BirthTime+this->LifeTime);
 
     break;
-    
+  case PopIII_Binary:
+    if (PopIII_NeutronStarMergers){
+      // If a Pop III star is going supernova, only kill it after it has
+      // applied its feedback sphere
+      if ((this->Mass >= PISNLowerMass && this->Mass <= PISNUpperMass) ||
+          ((this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) &&
+           PopIIISupernovaExplosions == TRUE)) {
+              this->Mass = 1.4;  // Need to change mass
+            // Need to change mass to mass of NS given initial mass of Pop III binary
+            // Set lifetime so the time of death is exactly now.
+            this->LifeTime = Time - this->BirthTime;
+            this->type = NS_Binary;
+            //this->FeedbackFlag = NO_FEEDBACK;
+            result = NO_DEATH;
+            //result = NO_DEATH;
+              }
+    }
+
+    // Would be for NSM
+    //if (PopIII_NeutronStarMergers){
+    //  float time_since_binary;
+    //  time_since_binary = Time - this->BirthTime;
+    //  if (time_since_binary >= PopIII_NSMDelayTime){
+    //    this->type = NS_Binary;
+    //    this->BirthTime = Time;
+    //    this->FeedbackFlag = SUPERNOVA;
+    //    this->Mass = 1.4;
+    //    result = NO_DEATH;
+    //  }
+    //}
+    //else result = NO_DEATH;
+
+    if (debug)
+      printf("HitEndpoint[%"ISYM"]: type = %"ISYM", mass = %"GOUTSYM", result = %"ISYM", feedback = %"ISYM", Time = %"PSYM"/%"PSYM"\n",
+      this->Identifier, this->type, this->Mass, result, this->FeedbackFlag, Time,
+      this->BirthTime+this->LifeTime);
+
+    break;
+
   case PopII:
     break;
 

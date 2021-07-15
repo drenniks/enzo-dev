@@ -39,7 +39,7 @@ printf("Number of Particles = %d \n", NumberOfParticles);
   Star *NewStar, *cstar;
   bool exists;
 
-  for (i = 0; i < NumberOfParticles; i++)
+  for (i = 0; i < NumberOfParticles; i++){
 	printf("Particle Type = %d \n", ParticleType[i]);
 	printf("Particle number = %d \n", ParticleNumber[i]);
 	printf("PopIII_NSMParticleID = %d \n", PopIII_NSMParticleID);
@@ -83,6 +83,7 @@ printf("Number of Particles = %d \n", NumberOfParticles);
 	NumberOfStars++;
       }
     }
+  }
 
 	//else {
 		/* Adding check for PopIIIParticleID to change Pop III star to binary system*/ 

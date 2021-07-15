@@ -143,6 +143,7 @@ public:
   bool  ApplyFeedbackTrue(float dt);
   int   HitEndpoint(FLOAT Time);
   void  PrintInfo(void);
+  void  SetType(int i) { type = i; };
 
   void  CalculateFeedbackParameters(float &Radius, 
 				    float RootCellWidth, float SNe_dt, 

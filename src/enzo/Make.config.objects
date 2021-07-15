@@ -366,6 +366,7 @@ OBJS_CONFIG_LIB = \
 	Grid_CalculateSmartStarAccretionRate.o \
 	Grid_CalculateSpecificQuantities.o \
 	Grid_ChangeParticleTypeBeforeSN.o \
+        Grid_ChangeParticleType.o \
 	Grid_CheckForExternalReflections.o \
 	Grid_CheckForOverlap.o \
 	Grid_CheckForPossibleOverlap.o \
@@ -884,6 +885,7 @@ OBJS_CONFIG_LIB = \
         StarParticleAddFeedback.o \
 	StarParticleCountOnly.o \
         StarParticleDeath.o \
+        StarParticleChangeType.o \
         StarParticleFinalize.o \
         StarParticleFindAll.o \
         StarParticleInitialize.o \

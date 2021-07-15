@@ -2867,6 +2867,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   int CalculateSpecificQuantities(FLOAT *SinkParticlePos, FLOAT *CLEdge,
 				  float *vgas, float msink,  
 				  float *vsink, int *numpoints);
+  int ChangeParticleType(void);
   int RemoveMassFromGrid(ActiveParticleType* ThisParticle,
 			 FLOAT AccretionRadius, float AccretionRate,
 			 float *AccretedMass, float *DeltaV,

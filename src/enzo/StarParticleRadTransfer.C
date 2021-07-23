@@ -79,6 +79,7 @@ int StarParticleRadTransfer(LevelHierarchyEntry *LevelArray[], int level,
 
     // Check the rules if this star particle is radiative
     if (cstar->IsARadiationSource(PhotonTime)) {
+      printf("This star is a Radiation Source. \n");
 
       // Calculate photon luminosity
       if (cstar->ComputePhotonRates(TimeUnits, nbins, energies, Q) == FAIL) {

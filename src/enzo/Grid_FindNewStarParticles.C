@@ -40,10 +40,6 @@ printf("Number of Particles = %d \n", NumberOfParticles);
   bool exists;
 
   for (i = 0; i < NumberOfParticles; i++){
-	printf("Particle Type = %d \n", ParticleType[i]);
-	printf("Particle number = %d \n", ParticleNumber[i]);
-	printf("PopIII_NSMParticleID = %d \n", PopIII_NSMParticleID);
-	
     if (ParticleType[i] == -PARTICLE_TYPE_SINGLE_STAR ||
 	ParticleType[i] == -PARTICLE_TYPE_BLACK_HOLE ||
 	ParticleType[i] == -PARTICLE_TYPE_CLUSTER ||

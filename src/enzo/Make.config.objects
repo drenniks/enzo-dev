@@ -366,7 +366,6 @@ OBJS_CONFIG_LIB = \
 	Grid_CalculateSmartStarAccretionRate.o \
 	Grid_CalculateSpecificQuantities.o \
 	Grid_ChangeParticleTypeBeforeSN.o \
-        Grid_ChangeParticleType.o \
 	Grid_CheckForExternalReflections.o \
 	Grid_CheckForOverlap.o \
 	Grid_CheckForPossibleOverlap.o \

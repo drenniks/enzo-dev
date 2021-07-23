@@ -250,6 +250,16 @@ int StarParticleAddFeedback(TopGridData *MetaData,
     if (cstar->ReturnFeedbackFlag() == SUPERNOVA)
       cstar->SetFeedbackFlag(DEATH);
 
+    /* Only kill a Pop III_binary star after it has gone SN */
+
+    if (cstar->ReturnFeedbackFlag() == POPIII_BINARY_SN)
+      cstar->SetFeedbackFlag(POPIII_BINARY_SN);
+
+    /* Only kill a Pop III_binary star after it has gone SN */
+
+    if (cstar->ReturnFeedbackFlag() == NS_BINARY_SN)
+      cstar->SetFeedbackFlag(NS_BINARY_SN);
+
     /* We only color the fields once */
 
     AddedFeedback[count] = true;

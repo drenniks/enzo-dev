@@ -52,32 +52,35 @@ int Star::HitEndpoint(FLOAT Time)
       // Needs to be non-zero (multiply by a small number to retain
       // memory of mass)
       if (this->FeedbackFlag == DEATH) {
-	this->Mass *= tiny_number;  
+	        this->Mass *= tiny_number;  
 
 
-	// Set lifetime so the time of death is exactly now.
-	this->LifeTime = Time - this->BirthTime;
+          // Set lifetime so the time of death is exactly now.
+          this->LifeTime = Time - this->BirthTime;
 
-	//this->FeedbackFlag = NO_FEEDBACK;
-	result = KILL_STAR;
-	//result = NO_DEATH;
-      } else {
-	result = NO_DEATH;
+          //this->FeedbackFlag = NO_FEEDBACK;
+          result = KILL_STAR;
+          //result = NO_DEATH;
+      } 
+      else {
+	      result = NO_DEATH;
       }
 
     // Check mass: Don't want to kill tracer SN particles formed
     // (above) in the previous timesteps.
 
-    } else if (this->Mass > 1e-9) {
+    } 
+    else if (this->Mass > 1e-9) {
       // Turn particle into a black hole (either radiative or tracer)
       if (PopIIIBlackHoles) {
-	this->type = BlackHole;
-	this->LifeTime = huge_number;
-	this->FeedbackFlag = NO_FEEDBACK;
-	result = NO_DEATH;
-      } else {
-	this->type = PARTICLE_TYPE_DARK_MATTER;
-	result = KILL_STAR;
+          this->type = BlackHole;
+          this->LifeTime = huge_number;
+          this->FeedbackFlag = NO_FEEDBACK;
+          result = NO_DEATH;
+      } 
+      else {
+          this->type = PARTICLE_TYPE_DARK_MATTER;
+          result = KILL_STAR;
       }
     } else // SN tracers (must refine)
       result = NO_DEATH;
@@ -90,37 +93,88 @@ int Star::HitEndpoint(FLOAT Time)
 	     this->BirthTime+this->LifeTime);
 
     break;
+
   case PopIII_Binary:
     if (PopIII_NeutronStarMergers){
       // If a Pop III star is going supernova, only kill it after it has
       // applied its feedback sphere
+      float initial_mass;
       if ((this->Mass >= PISNLowerMass && this->Mass <= PISNUpperMass) ||
           ((this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) &&
            PopIIISupernovaExplosions == TRUE)) {
-              this->Mass = 1.4;  // Need to change mass
-            // Need to change mass to mass of NS given initial mass of Pop III binary
-            // Set lifetime so the time of death is exactly now.
-            this->LifeTime = Time - this->BirthTime;
-            this->type = NS_Binary;
-            //this->FeedbackFlag = NO_FEEDBACK;
-            result = NO_DEATH;
-            //result = NO_DEATH;
-              }
+             if (this->FeedbackFlag == POPIII_BINARY_SN) {
+
+            // Needs to be non-zero (multiply by a small number to retain
+            // memory of mass)
+            
+                // Set lifetime so the time of death is exactly now.
+                //this->LifeTime = Time - this->BirthTime;
+
+                //this->FeedbackFlag = NO_FEEDBACK;
+                initial_mass = this->Mass/2.0;
+                // Check initial mass of Pop III stars and find remnant mass
+                // For now, assuming symmetric NS binary system
+                // Masses from Woosley et al. 2002 Fig. 12
+                if (8.0 < initial_mass < 10.6) {
+                  this->Mass = (0.162*initial_mass - 0.071) * 2;
+                }
+                else if (10.6 <= initial_mass <= 19.0) {
+                  this->Mass = 1.66 * 2;
+                }
+                else if (19.0 < initial_mass < 25.9) {
+                  this->Mass = (0.108*initial_mass - 0.387) * 2;
+                }
+                //  this->Mass = 1.4;  // Need to change mass
+                // Need to change mass to mass of NS given initial mass of Pop III binary
+                // Set lifetime so the time of death is exactly now.
+                //this->LifeTime = Time - this->BirthTime;
+                this->LifeTime = PopIII_NSMDelayTime;
+                this->BirthTime = Time;
+                this->type = NS_Binary;
+                //this->FeedbackFlag = POPIII_BINARY_SN;
+                this->FeedbackFlag = NO_FEEDBACK;
+                //result = KILL_STAR;
+                result = NO_DEATH;
+           }
+            else {
+              result = NO_DEATH;
+            }
+           }
+           
+    }
+      if (debug)
+      printf("HitEndpoint[%"ISYM"]: type = %"ISYM", mass = %"GOUTSYM", result = %"ISYM", feedback = %"ISYM", Time = %"PSYM"/%"PSYM"\n",
+	     this->Identifier, this->type, this->Mass, result, this->FeedbackFlag, Time,
+	     this->BirthTime+this->LifeTime);
+
+    break;
+    
+
+    case NS_Binary:
+    if (PopIII_NeutronStarMergers){
+      if (this->FeedbackFlag == NS_BINARY_SN) {
+      //float age;
+      //age = Time - this->BirthTime;
+      //if (age >= PopIII_NSMDelayTime){
+        this->type = BlackHole;
+        this->BirthTime = Time;
+        this->FeedbackFlag = NS_BINARY_SN;
+        this->Mass *= tiny_number; 
+        result = DEATH;
+      //}
+      }
+      else {
+              result = NO_DEATH;
+            }
+      if (debug)
+      printf("HitEndpoint[%"ISYM"]: type = %"ISYM", mass = %"GOUTSYM", result = %"ISYM", feedback = %"ISYM", Time = %"PSYM"/%"PSYM"\n",
+	     this->Identifier, this->type, this->Mass, result, this->FeedbackFlag, Time,
+	     this->BirthTime+this->LifeTime);
+
+    break;
     }
 
-    // Would be for NSM
-    //if (PopIII_NeutronStarMergers){
-    //  float time_since_binary;
-    //  time_since_binary = Time - this->BirthTime;
-    //  if (time_since_binary >= PopIII_NSMDelayTime){
-    //    this->type = NS_Binary;
-    //    this->BirthTime = Time;
-    //    this->FeedbackFlag = SUPERNOVA;
-    //    this->Mass = 1.4;
-    //    result = NO_DEATH;
-    //  }
-    //}
-    //else result = NO_DEATH;
+    else result = NO_DEATH;
 
     if (debug)
       printf("HitEndpoint[%"ISYM"]: type = %"ISYM", mass = %"GOUTSYM", result = %"ISYM", feedback = %"ISYM", Time = %"PSYM"/%"PSYM"\n",

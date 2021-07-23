@@ -176,11 +176,44 @@ void Star::CalculateFeedbackParameters(float &Radius,
     Radius = max(Radius, 3.5*StarLevelCellWidth);
     EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
     EjectaDensity = Mass * SolarMass / EjectaVolume / DensityUnits;
-
+    printf("PopIII_BINARY_SN supernova in CalculateFeedbackParameters \n");
   // Type II SNe
     if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
       if (this->Mass < 20.0) { // Normal Type II
 	SNEnergy = 2e51;
+	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+  MetalMass *= 2.0;
+      } else { // Hypernova (should we add the "failed" SNe?)
+	bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);
+	frac = (SNExplosionMass[bin+1] - this->Mass) / 
+	  (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+	SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
+			   frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+	MetalMass = (SNExplosionMetals[bin] + 
+		     frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+      }
+      EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
+      
+    }
+    EjectaThermalEnergy = SNEnergy / (Mass * SolarMass) / VelocityUnits /
+      VelocityUnits;
+
+    // Exaggerate influence radius because the blastwave will enter
+    // into some of the surrounding parent grids within the next
+    // timestep if we inject the energy into a small radius.
+    Radius *= 1.0;
+    break;
+
+  case NS_BINARY_SN:
+    Radius = PopIIISupernovaRadius * pc_cm / LengthUnits;
+    Radius = max(Radius, 3.5*StarLevelCellWidth);
+    EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
+    EjectaDensity = Mass * SolarMass / EjectaVolume / DensityUnits;
+    printf("NS_BINARY_SN supernova in CalculateFeedbackParameters \n");
+  // Type II SNe
+    if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
+      if (this->Mass < 20.0) { // Normal Type II
+	SNEnergy = PopIII_NSMExplosionEnergy;
 	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
   MetalMass *= 2.0;
       } else { // Hypernova (should we add the "failed" SNe?)

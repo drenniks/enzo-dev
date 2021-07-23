@@ -171,6 +171,12 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
     }
     break;
 
+  case NS_Binary:
+    nbins = 3;
+    for (i = 0; i < nbins; i++){
+      Q[i] = 0.0;
+      E[i] = 0.0;
+    }
 #define NOT_HII_REGION_TEST
 #ifdef HII_REGION_TEST
     Q[0] = 1.0e45 * MBHFeedbackRadiativeEfficiency * XrayLuminosityFraction / E[0];

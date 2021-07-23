@@ -568,6 +568,7 @@ typedef long long int   HDF5_hid_t;
 #define MBH_JETS 8
 #define COLOR_FIELD 9
 #define POPIII_BINARY_SN 10
+#define NS_BINARY_SN 11
 
 /* Sink particle accretion modes */
 

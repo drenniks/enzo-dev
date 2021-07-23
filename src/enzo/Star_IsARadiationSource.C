@@ -29,7 +29,7 @@ bool Star::IsARadiationSource(FLOAT Time)
 
   /* To add rules, you must also modify NumberOfRules. */
 
-  const int NumberOfRules = 4;
+  const int NumberOfRules = 5;
   rules = new bool[NumberOfRules];
 
   for (i = 0; i < NumberOfRules; i++) 
@@ -58,6 +58,9 @@ bool Star::IsARadiationSource(FLOAT Time)
 
   // Non-zero mass
   rules[3] = (Mass > tiny_number);
+
+  // Not a NS Binary particle
+  rules[4] = (type != NS_Binary);
 
   /******************** END RULES ********************/
 

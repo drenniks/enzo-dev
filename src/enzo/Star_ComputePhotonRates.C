@@ -154,7 +154,7 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
     E[1] = 30.0;
     E[2] = 58.0;
     E[3] = 12.8;
-    _mass = max(min((float)(_mass), 500), 5);
+    _mass = max(min((float)(_mass/2), 500), 5);
     if (_mass > 9 && _mass <= 500) {
       Q[0] = 2*pow(10.0, 43.61 + 4.9*x   - 0.83*x2);
       Q[1] = 2*pow(10.0, 42.51 + 5.69*x  - 1.01*x2);

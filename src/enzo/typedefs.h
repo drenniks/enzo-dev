@@ -179,7 +179,10 @@ const field_type
   ImPsi = 102,
   FDMDensity = 103,
 
-  FieldUndefined  = 104;
+  /* R-Process field for NSM Model */ 
+  NSM_RProcess = 104, 
+
+  FieldUndefined  = 105;
 
 /*
 enum field_type {Density, TotalEnergy, InternalEnergy, Pressure,

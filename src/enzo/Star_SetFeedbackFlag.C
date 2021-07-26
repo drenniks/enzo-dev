@@ -113,7 +113,6 @@ int Star::SetFeedbackFlag(FLOAT Time)
       (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass)) &&
       PopIIISupernovaExplosions == TRUE) {
         this->FeedbackFlag = POPIII_BINARY_SN;
-        printf("PopIII_Binary Supernova \n");
       }
     else
   this->FeedbackFlag = NO_FEEDBACK; // BH formation
@@ -127,7 +126,6 @@ int Star::SetFeedbackFlag(FLOAT Time)
     else if (Time > this->BirthTime + this->LifeTime) // endpoint
       {
         this->FeedbackFlag = NS_BINARY_SN;
-        printf("NS_Binary Supernova \n");
       }
     else // main sequense
       this->FeedbackFlag = NO_FEEDBACK;

@@ -32,13 +32,13 @@
 #include "CommunicationUtilities.h"
 
 int StarParticleChangeType(Star *AllStars)
-// check to see if particle id parameter is negative. if so return success
 {
     Star *ThisStar;
 
     if (PopIII_NeutronStarMergers == 1){
+        // Check if the particle has already changed to a PopIII Binary system
         if (PopIII_NSMParticleID == -1){
-            printf("PopIII star already changed to NS system. \n");
+            
             return SUCCESS;
         }
 
@@ -46,7 +46,7 @@ int StarParticleChangeType(Star *AllStars)
             for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar){
                 if (ThisStar->ReturnID() == PopIII_NSMParticleID){
                     ThisStar->SetType(PARTICLE_TYPE_POPIII_BINARY);
-                    PopIII_NSMParticleID = -1;
+                    PopIII_NSMParticleID = -1; 
                 }
             }
         }

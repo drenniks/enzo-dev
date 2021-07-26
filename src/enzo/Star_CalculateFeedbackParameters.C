@@ -176,7 +176,6 @@ void Star::CalculateFeedbackParameters(float &Radius,
     Radius = max(Radius, 3.5*StarLevelCellWidth);
     EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
     EjectaDensity = Mass * SolarMass / EjectaVolume / DensityUnits;
-    printf("PopIII_BINARY_SN supernova in CalculateFeedbackParameters \n");
   // Type II SNe
     if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
       if (this->Mass < 20.0) { // Normal Type II
@@ -209,12 +208,11 @@ void Star::CalculateFeedbackParameters(float &Radius,
     Radius = max(Radius, 3.5*StarLevelCellWidth);
     EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
     EjectaDensity = Mass * SolarMass / EjectaVolume / DensityUnits;
-    printf("NS_BINARY_SN supernova in CalculateFeedbackParameters \n");
   // Type II SNe
     if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
       if (this->Mass < 20.0) { // Normal Type II
 	SNEnergy = PopIII_NSMExplosionEnergy;
-	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06 -- adjust this?
   MetalMass *= 2.0;
       } else { // Hypernova (should we add the "failed" SNe?)
 	bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);

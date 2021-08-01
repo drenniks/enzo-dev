@@ -172,10 +172,10 @@ int grid::SolveHydroEquations(int CycleNumber, int NumberOfSubgrids,
     /* Add "real" colour fields (metallicity, etc.) as colour variables. */
 
     int SNColourNum, MetalNum, MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum,
-      MetalIaNum, MetalIINum; 
+      MetalIaNum, MetalIINum, NSMNum; 
 
     if (this->IdentifyColourFields(SNColourNum, MetalNum, MetalIaNum, MetalIINum,
-                MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum) == FAIL)
+                MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL)
       ENZO_FAIL("Error in grid->IdentifyColourFields.\n");
 
     if (MetalNum != -1) {
@@ -192,6 +192,7 @@ int grid::SolveHydroEquations(int CycleNumber, int NumberOfSubgrids,
     if (MBHColourNum     != -1) colnum[NumberOfColours++] = MBHColourNum;
     if (Galaxy1ColourNum != -1) colnum[NumberOfColours++] = Galaxy1ColourNum;
     if (Galaxy2ColourNum != -1) colnum[NumberOfColours++] = Galaxy2ColourNum;
+    if (NSMNum      != -1) colnum[NumberOfColours++] = NSMNum;
 
 
     /* Add Simon Glover's chemistry species as color fields */

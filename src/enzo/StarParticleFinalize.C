@@ -73,8 +73,6 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
   for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar)
     NumberOfStars++;
   bool *AddedFeedback = new bool[NumberOfStars];
-
-  printf("Number of stars = %d \n", NumberOfStars);
   
   
 

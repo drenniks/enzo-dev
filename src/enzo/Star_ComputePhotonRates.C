@@ -172,7 +172,7 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
     break;
 
   case NS_Binary:
-    nbins = 3;
+    nbins = 4;
     for (i = 0; i < nbins; i++){
       Q[i] = 0.0;
       E[i] = 0.0;

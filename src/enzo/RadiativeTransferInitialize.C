@@ -66,6 +66,7 @@ int RadiativeTransferInitialize(char *ParameterFile,
   const char    *Rad1Name      = "Radiation1";
   const char    *Rad2Name      = "Radiation2";
   const char    *Rad3Name      = "Radiation3";
+  const char	*NSMColourName    = "NSMRProcess";
 
   int i, j, k, level;
   FILE *fptr;
@@ -200,6 +201,8 @@ int RadiativeTransferInitialize(char *ParameterFile,
 	  TypesToAdd[FieldsToAdd++] = i;
       if (PopIIISupernovaUseColour)
 	TypesToAdd[FieldsToAdd++] = SNColour;
+      if (PopIII_NeutronStarMergers)
+  TypesToAdd[FieldsToAdd++] = NSMRProcess;
       if (StarClusterUseMetalField &&
 	  StarParticleFeedback > 0 &&
 	  StarParticleFeedback != (1 << POP3_STAR)) {
@@ -339,7 +342,7 @@ int RadiativeTransferInitialize(char *ParameterFile,
       DataLabel[OldNumberOfBaryonFields+i] = (char*) MetalIaName;
       break;
     case SNColour:
-      DataLabel[OldNumberOfBaryonFields+i] = (char*) ColourName;
+      DataLabel[OldNumberOfBaryonFields+i] = (char*) ColourName; 
       break;
     case RadiationFreq0:
       DataLabel[OldNumberOfBaryonFields+i] = (char*) Rad0Name;
@@ -355,6 +358,9 @@ int RadiativeTransferInitialize(char *ParameterFile,
       break;
     case RaySegments:
       DataLabel[OldNumberOfBaryonFields+i] = (char*) RaySegName;
+      break;
+    case NSMRProcess:
+      DataLabel[OldNumberOfBaryonFields+i] = (char*) NSMColourName; 
       break;
     } // ENDSWITCH
     if (debug) 

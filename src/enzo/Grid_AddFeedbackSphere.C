@@ -103,18 +103,24 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
   /* Find Metallicity or SNColour field and set flag. */
 
   int SNColourNum, MetalNum, Metal2Num, MBHColourNum, Galaxy1ColourNum, 
-    Galaxy2ColourNum, MetalIaNum, MetalIINum;
+    Galaxy2ColourNum, MetalIaNum, MetalIINum, NSMNum;
   int MetallicityField = FALSE;
 
   if (this->IdentifyColourFields(SNColourNum, Metal2Num, MetalIaNum, 
 				 MetalIINum, MBHColourNum, Galaxy1ColourNum, 
-				 Galaxy2ColourNum) == FAIL)
+				 Galaxy2ColourNum, NSMNum) == FAIL)
     ENZO_FAIL("Error in grid->IdentifyColourFields.\n");
 
   MetalNum = max(Metal2Num, SNColourNum);
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
   if (MetalNum > 0 && SNColourNum > 0 && cstar->type == PopIII)
     MetalNum = SNColourNum;
+	printf("MetalNum (PopIII) = %d \n", MetalNum);
+  if (MetalNum > 0 && SNColourNum > 0 && cstar->type == PopIII_Binary)
+    MetalNum = SNColourNum;
+	printf("MetalNum (PopIII_Binary) = %d \n", MetalNum);
+  if (MetalNum > 0 && NSMNum > 0 && cstar->type == NS_Binary)
+	MetalNum = NSMNum;
 
   float BubbleVolume = (4.0 * pi / 3.0) * radius * radius * radius;
 
@@ -134,7 +140,9 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
   float outerRadius2, delta_fz;
 
   if (cstar->FeedbackFlag == SUPERNOVA || 
-      cstar->FeedbackFlag == CONT_SUPERNOVA) {
+      cstar->FeedbackFlag == CONT_SUPERNOVA ||
+	  cstar->FeedbackFlag == POPIII_BINARY_SN ||
+	  cstar->FeedbackFlag == NS_BINARY_SN) {
 
   // Correct for exaggerated influence radius for pair-instability supernovae
     if (cstar->FeedbackFlag == SUPERNOVA)
@@ -171,7 +179,9 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
        increase the particle's velocity accordingly. - Ji-hoon Kim, Sep.2009 */
 
 //    printf("grid::AFS: before: cstar->Mass = %lf\n", cstar->Mass); 
-    if (cstar->FeedbackFlag != SUPERNOVA) {
+    if (cstar->FeedbackFlag != SUPERNOVA || 
+		cstar->FeedbackFlag != POPIII_BINARY_SN ||
+		cstar->FeedbackFlag != NS_BINARY_SN) {
       float old_mass = (float)(cstar->Mass);
       cstar->Mass -= EjectaDensity * DensityUnits * BubbleVolume * pow(LengthUnits,3.0) / SolarMass;  
       float frac = old_mass / cstar->Mass;

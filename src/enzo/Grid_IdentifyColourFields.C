@@ -28,11 +28,11 @@ int FindField(int f, int farray[], int n);
 
 int grid::IdentifyColourFields(int &SNColourNum, int &MetalNum, 
 			       int &MetalIaNum, int &MetalIINum, int &MBHColourNum,
-			       int &Galaxy1ColourNum, int &Galaxy2ColourNum)
+			       int &Galaxy1ColourNum, int &Galaxy2ColourNum, int &NSMNum)
 {
  
   SNColourNum = MetalNum = MetalIaNum = MBHColourNum = Galaxy1ColourNum = 
-    MetalIINum = Galaxy2ColourNum = 0;
+    MetalIINum = Galaxy2ColourNum = NSMNum = 0;
  
   SNColourNum = FindField(SNColour, FieldType, NumberOfBaryonFields);
   MetalNum = FindField(Metallicity, FieldType, NumberOfBaryonFields);
@@ -41,6 +41,7 @@ int grid::IdentifyColourFields(int &SNColourNum, int &MetalNum,
   MBHColourNum = FindField(MBHColour, FieldType, NumberOfBaryonFields);
   Galaxy1ColourNum = FindField(Galaxy1Colour, FieldType, NumberOfBaryonFields);
   Galaxy2ColourNum = FindField(Galaxy2Colour, FieldType, NumberOfBaryonFields);
+  NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields);
 
   /*
   if ((SNColourNum < 0) && (MetalNum < 0) && (MBHColourNum < 0) && 

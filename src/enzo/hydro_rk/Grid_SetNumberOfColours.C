@@ -39,10 +39,10 @@ int grid::SetNumberOfColours(void)
   /* Count colours */  
 
   int SNColourNum, MetalNum, MetalIaNum, MetalIINum, MBHColourNum, Galaxy1ColourNum, 
-    Galaxy2ColourNum; 
+    Galaxy2ColourNum, NSMNum; 
 
   if (this->IdentifyColourFields(SNColourNum, MetalNum, MetalIaNum, MetalIINum, MBHColourNum, 
-				 Galaxy1ColourNum, Galaxy2ColourNum) == FAIL) {
+				 Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL) {
     fprintf(stderr, "Error in grid->IdentifyColourFields.\n");
     return FAIL;
   }

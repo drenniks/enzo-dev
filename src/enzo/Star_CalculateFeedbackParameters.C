@@ -209,10 +209,10 @@ void Star::CalculateFeedbackParameters(float &Radius,
     EjectaVolume = 4.0/3.0 * pi * pow(Radius*LengthUnits, 3);
     EjectaDensity = Mass * SolarMass / EjectaVolume / DensityUnits;
   // Type II SNe
-    if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
       if (this->Mass < 20.0) { // Normal Type II
 	SNEnergy = PopIII_NSMExplosionEnergy;
-	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06 -- adjust this?
+  printf("PopIII_NSMExplosionEnergy (CalculateFeedbackParameters) = %d \n", SNEnergy);
+	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06 -- adjust this? // Need to adjust this for NS binary
   MetalMass *= 2.0;
       } else { // Hypernova (should we add the "failed" SNe?)
 	bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);
@@ -224,9 +224,10 @@ void Star::CalculateFeedbackParameters(float &Radius,
 		     frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
       }
       EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
-    }
-    EjectaThermalEnergy = SNEnergy / (Mass * SolarMass) / VelocityUnits /
+    
+    EjectaThermalEnergy = SNEnergy / (Mass * SolarMass) / VelocityUnits / 
       VelocityUnits;
+      printf("EjectaThermalEnergy (CalculateFeedbackParameters) = %d \n", EjectaThermalEnergy);
 
     // Exaggerate influence radius because the blastwave will enter
     // into some of the surrounding parent grids within the next

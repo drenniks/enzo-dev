@@ -51,12 +51,12 @@ int grid::ApplyGalaxyParticleGravity(ActiveParticleType** ThisParticle){
   FLOAT xx, yy, zz;
 
   int SNColourNum, MetalNum, MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum,
-    MetalIaNum, MetalIINum;
+    MetalIaNum, MetalIINum, NSMNum;
   int MetallicityField = FALSE;
 
   if (this->IdentifyColourFields(SNColourNum, MetalNum, MetalIaNum,
                                  MetalIINum, MBHColourNum, 
-                                 Galaxy1ColourNum, Galaxy2ColourNum) == FAIL) {
+                                 Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL) {
     ENZO_FAIL("Error in grid->IdentifyColourFields.\n");
   }
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;

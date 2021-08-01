@@ -420,3 +420,10 @@ float* grid::AccessEmissivity0() {
   return BaryonField[EtaNum];
 }
 
+// NSM R-Process Colour field 
+float* grid::AccessNSMRProcess() {
+  int NSMNum = -1;
+  if ((NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields))<0) 
+    return NULL;
+  return BaryonField[NSMNum];
+}

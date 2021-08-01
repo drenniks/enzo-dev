@@ -228,7 +228,7 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 	     EjectaMetalDensity, EjectaThermalEnergy, Q_HI, sigma, deltaE, 
 	     CellsModified);
     } // ENDIF
-
+    printf("EjectaThermalEnergy in StarParticleAddFeedback = %d \n", EjectaThermalEnergy);
 //    fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 //	    "Radius = %e pc_cm, changed %"ISYM" cells.\n", 
 //	    cstar->ReturnID(), level, influenceRadius*LengthUnits/pc_cm, CellsModified); 
@@ -253,18 +253,18 @@ int StarParticleAddFeedback(TopGridData *MetaData,
     /* Only kill a Pop III_binary star after it has gone SN */
 
     if (cstar->ReturnFeedbackFlag() == POPIII_BINARY_SN)
-      cstar->SetFeedbackFlag(POPIII_BINARY_SN);
+      cstar->SetFeedbackFlag(DEATH);
 
     /* Only kill a Pop III_binary star after it has gone SN */
 
     if (cstar->ReturnFeedbackFlag() == NS_BINARY_SN)
-      cstar->SetFeedbackFlag(NS_BINARY_SN);
+      cstar->SetFeedbackFlag(DEATH);
 
     /* We only color the fields once */
 
     AddedFeedback[count] = true;
 
-#ifdef UNUSED
+// #ifdef UNUSED
     temp_int = CellsModified;
     MPI_Reduce(&temp_int, &CellsModified, 1, MPI_INT, MPI_SUM, ROOT_PROCESSOR,
 	       MPI_COMM_WORLD);
@@ -282,12 +282,13 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 	fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 		"Energy = %"GSYM"  , skip = %"ISYM"\n",
 		cstar->ReturnID(), level, EjectaThermalEnergy, SkipMassRemoval);
+      printf("Energy = %d \n", EjectaThermalEnergy);
       fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 	      "changed %"ISYM" cells.  AddedFeedback[%d] = %d\n", 
 	      cstar->ReturnID(), level, CellsModified, 
 	      count, AddedFeedback[count]);
     }
-#endif
+// #endif
     
   } // ENDFOR stars
 

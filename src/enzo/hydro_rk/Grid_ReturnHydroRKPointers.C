@@ -104,10 +104,10 @@ int grid::ReturnHydroRKPointers(float **Prim, bool ReturnMassFractions)
   /* Add the colours (NColor is determined in EvolveLevel) */  
 
   int SNColourNum, MetalNum, MetalIaNum, MetalIINum, MBHColourNum, Galaxy1ColourNum, 
-    Galaxy2ColourNum; 
+    Galaxy2ColourNum, NSMNum; 
 
   if (this->IdentifyColourFields(SNColourNum, MetalNum, MetalIaNum, MetalIINum, MBHColourNum, 
-				 Galaxy1ColourNum, Galaxy2ColourNum) == FAIL) {
+				 Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL) {
     fprintf(stderr, "Error in grid->IdentifyColourFields.\n");
     return FAIL;
   }
@@ -125,6 +125,7 @@ int grid::ReturnHydroRKPointers(float **Prim, bool ReturnMassFractions)
   }
 
   if (SNColourNum      != -1) Prim[nfield++] = BaryonField[SNColourNum];  
+  if (NSMNum      != -1) Prim[nfield++] = BaryonField[NSMNum];  
   /*   //##### These fields are currently not being used and only causing interpolation problems
   if (MBHColourNum     != -1) Prim[nfield++] = BaryonField[MBHColourNum];
   if (Galaxy1ColourNum != -1) Prim[nfield++] = BaryonField[Galaxy1ColourNum];

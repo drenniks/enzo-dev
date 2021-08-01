@@ -180,7 +180,7 @@ const field_type
   FDMDensity = 103,
 
   /* R-Process field for NSM Model */ 
-  NSM_RProcess = 104, 
+  NSMRProcess = 104, 
 
   FieldUndefined  = 105;
 
@@ -198,6 +198,8 @@ enum field_type {Density, TotalEnergy, InternalEnergy, Pressure,
 #define FieldTypeIsDensity(A) ((((A) >= TotalEnergy && (A) <= Velocity3) || ((A) >= kphHI && (A) <= kdissH2I) || ((A) == kdissH2II) || ((A) == kphHM) || ((A) >= RadiationFreq0 && (A) <= RaySegments) || ((A) >= Bfield1 && (A) <= AccelerationField3)) ? FALSE : TRUE)
 #define FieldTypeIsRadiation(A) ((((A) >= kphHI && (A) <= kdissH2I) || ((A) == kdissH2II) || ((A) == kphHM) || ((A) >= RadiationFreq0 && (A) <= RadiationFreq9)) ? TRUE : FALSE)
 #define FieldTypeNoInterpolate(A) (((((A) >= Mach) && ((A) <= PreShockDensity)) || ((A) == GravPotential) || ((A) == RaySegments)) ? TRUE : FALSE)
+
+printf("FieldTypeIsDensity(NSMRProcess) = %d \n", FieldTypeIsDensity(104));
 
 /* Different stochastic forcing types */
 const forcing_type

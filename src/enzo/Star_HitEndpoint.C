@@ -99,10 +99,8 @@ int Star::HitEndpoint(FLOAT Time)
       // If a Pop III star is going supernova, only kill it after it has
       // applied its feedback sphere
       float initial_mass;
-      if ((this->Mass >= PISNLowerMass && this->Mass <= PISNUpperMass) ||
-          ((this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) &&
-           PopIIISupernovaExplosions == TRUE)) {
-             if (this->FeedbackFlag == POPIII_BINARY_SN) {
+
+             if (this->FeedbackFlag == DEATH) {
 
             // Needs to be non-zero (multiply by a small number to retain
             // memory of mass)
@@ -111,7 +109,7 @@ int Star::HitEndpoint(FLOAT Time)
                 //this->LifeTime = Time - this->BirthTime;
 
                 //this->FeedbackFlag = NO_FEEDBACK;
-                initial_mass = this->Mass/2.0;
+                initial_mass = this->FinalMass/2.0;
                 // Check initial mass of Pop III stars and find remnant mass
                 // For now, assuming symmetric NS binary system
                 // Masses from Woosley et al. 2002 Fig. 12
@@ -133,13 +131,14 @@ int Star::HitEndpoint(FLOAT Time)
                 this->type = NS_Binary;
                 //this->FeedbackFlag = POPIII_BINARY_SN;
                 this->FeedbackFlag = NO_FEEDBACK;
+                //this->MirrorToParticle();
                 //result = KILL_STAR;
                 result = NO_DEATH;
            }
             else {
               result = NO_DEATH;
             }
-           }
+           
            
     }
       if (debug)
@@ -152,15 +151,15 @@ int Star::HitEndpoint(FLOAT Time)
 
     case NS_Binary:
     if (PopIII_NeutronStarMergers){
-      if (this->FeedbackFlag == NS_BINARY_SN) {
+      if (this->FeedbackFlag == DEATH) {
       //float age;
       //age = Time - this->BirthTime;
       //if (age >= PopIII_NSMDelayTime){
         this->type = BlackHole;
         this->BirthTime = Time;
-        this->FeedbackFlag = NS_BINARY_SN;
+        this->FeedbackFlag = NO_FEEDBACK;
         this->Mass *= tiny_number; 
-        result = DEATH;
+        result = NO_DEATH;
       //}
       }
       else {

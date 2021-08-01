@@ -1362,7 +1362,7 @@ gradient force to gravitational force for one-zone collapse test. */
    float* AccessRadiationFrequency7();
    float* AccessRadiationFrequency8();
    float* AccessRadiationFrequency9();
-
+   float* AccessNSMRProcess();
 
 // -------------------------------------------------------------------------
 // Functions for accessing top-grid parallelism information
@@ -1813,7 +1813,7 @@ int TransferSubgridActiveParticles(grid* Subgrids[], int NumberOfSubgrids,
 
   int IdentifyColourFields(int &SNColourNum, int &MetalNum, 
 			   int &MetalIaNum, int &MetalIINum, int &MBHColourNum,
-		           int &Galaxy1ColourNum, int &Galaxy2ColourNum);
+		           int &Galaxy1ColourNum, int &Galaxy2ColourNum, int &NSMNum);
 
   /* Identify Multi-species fields. */
 

@@ -1208,7 +1208,7 @@ EXTERN float MagneticSupernovaEnergy;
 /* Neutron Star Mergers from Pop III stars */
 EXTERN int PopIII_NeutronStarMergers;
 EXTERN int PopIII_NSMParticleID;
-EXTERN double PopIII_NSMExplosionEnergy;
+EXTERN float PopIII_NSMExplosionEnergy;
 EXTERN float PopIII_NSMDelayTime;
 
 #endif

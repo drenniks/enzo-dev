@@ -126,7 +126,7 @@ int Star::HitEndpoint(FLOAT Time)
                 // Need to change mass to mass of NS given initial mass of Pop III binary
                 // Set lifetime so the time of death is exactly now.
                 //this->LifeTime = Time - this->BirthTime;
-                this->LifeTime = PopIII_NSMDelayTime;
+                this->LifeTime = PopIII_NSMDelayTime; // * TimeUnits; code time for right now
                 this->BirthTime = Time;
                 this->type = NS_Binary;
                 //this->FeedbackFlag = POPIII_BINARY_SN;

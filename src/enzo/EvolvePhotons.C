@@ -268,12 +268,10 @@ int EvolvePhotons(TopGridData *MetaData, LevelHierarchyEntry *LevelArray[],
 	TempGridList = TempGridList->NextGrid;
       }
     }
-    if (NumberOfSources == 0) {
-      PhotonTime += dtPhoton;
-      continue;
-    }
-
     if (debug) fprintf(stdout, "%"ISYM" SRC(s)\n", NumberOfSources);
+    
+
+    
 
   /* Temporarily load balance grids according to the number of ray
      segments.  We'll move the grids back at the end of this
@@ -293,6 +291,10 @@ int EvolvePhotons(TopGridData *MetaData, LevelHierarchyEntry *LevelArray[],
 	  ENZO_FAIL("Error in InitializeRadiativeTransferFields.\n");
 	}
     END_PERF(0);
+  if (NumberOfSources == 0) {
+        PhotonTime += dtPhoton;
+        continue;
+      }
 
     /* create temperature fields for Compton heating */  
 

@@ -83,7 +83,7 @@ int grid::SubtractAccretedMassFromSphere(Star *cstar, int level, float radius, f
 
   int SNColourNum, MetalNum, MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum,
     MetalIaNum, MetalIINum, NSMNum;
-  int MetallicityField = FALSE;
+  //int MetallicityField = FALSE;
 
   if (this->IdentifyColourFields(SNColourNum, MetalNum, MetalIaNum, MetalIINum,
               MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL)
@@ -91,15 +91,6 @@ int grid::SubtractAccretedMassFromSphere(Star *cstar, int level, float radius, f
 
   // MetalNum = max(MetalNum, SNColourNum);
   // MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
-
-  if (PopIII_NeutronStarMergers){
-    MetalNum = max(MetalNum, NSMNum);
-    MetallicityField = (MetalNum > 0) ? TRUE : FALSE; 
-  }
-  else {
-    MetalNum = max(MetalNum, SNColourNum);
-    MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
-  }
 
   /***********************************************************************
                   MASS SUBTRACTION AFTER ACCRETION ONTO MBH
@@ -188,9 +179,18 @@ int grid::SubtractAccretedMassFromSphere(Star *cstar, int level, float radius, f
 	    BaryonField[DIINum][index] *= increase;
 	    BaryonField[HDINum][index] *= increase;
 	  }
-	  
-	  if (MetallicityField == TRUE)
-	    BaryonField[MetalNum][index] *= increase;
+
+    if (MetalNum > 0)
+
+	    BaryonField[MetalNum][index] *= increase; 
+
+    if (SNColourNum > 0)
+
+	    BaryonField[SNColourNum][index] *= increase; 
+    
+    if (NSMNum > 0)
+
+	    BaryonField[SNColourNum][index] *= increase; 
 	  
 	  if (MBHColourNum > 0)
 

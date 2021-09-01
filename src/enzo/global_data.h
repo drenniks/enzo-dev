@@ -1210,5 +1210,6 @@ EXTERN int PopIII_NeutronStarMergers;
 EXTERN int PopIII_NSMParticleID;
 EXTERN float PopIII_NSMExplosionEnergy;
 EXTERN float PopIII_NSMDelayTime;
+EXTERN float PopIII_NSMMetalMass;
 
 #endif

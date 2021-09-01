@@ -75,27 +75,35 @@ int grid::FlagCellsToBeRefinedByMetalMass(int level)
 
   /* Metal cooling field numbers. */
 
-  int MetalNum = 0, SNColourNum = 0;
+  int MetalNum = 0, SNColourNum = 0, NSMNum = 0;
   int MetalFieldPresent = FALSE;
 
   // First see if there's a metal field (so we can conserve species in
   // the solver)
   MetalNum = FindField(Metallicity, FieldType, NumberOfBaryonFields);
   SNColourNum = FindField(SNColour, FieldType, NumberOfBaryonFields);
-  MetalFieldPresent = (MetalNum != -1 || SNColourNum != -1);
+  NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields);
+
+  MetalFieldPresent = (MetalNum != -1 || SNColourNum != -1 || NSMNum != -1);
 
   // Double check if there's a metal field when we have metal cooling
   if (MetalCooling && MetalFieldPresent == FALSE)
     ENZO_FAIL("ERROR: No metal field found. "
 	      "Restart and turn OFF MetalMass refinement.");
 
-  /* If both metal fields (Pop I/II and III) exist, create a field
-     that contains their sum */
+  /* If all three metal fields (Pop I/II, III, and NSM) exist, create a field
+     that contains their sum. Also include if the NSM do not exist but PopI/II and III do. */
 
   float *MetalPointer;
   float *TotalMetals = NULL;
 
-  if (MetalNum != -1 && SNColourNum != -1) {
+  if (MetalNum != -1 && SNColourNum != -1 && NSMNum != -1) {
+    TotalMetals = new float[size];
+    for (i = 0; i < size; i++)
+      TotalMetals[i] = BaryonField[MetalNum][i] + BaryonField[SNColourNum][i] + BaryonField[NSMNum][i];
+    MetalPointer = TotalMetals;
+  } // ENDIF all three metal types
+  else if (MetalNum != -1 && SNColourNum != -1) {
     TotalMetals = new float[size];
     for (i = 0; i < size; i++)
       TotalMetals[i] = BaryonField[MetalNum][i] + BaryonField[SNColourNum][i];
@@ -106,6 +114,8 @@ int grid::FlagCellsToBeRefinedByMetalMass(int level)
       MetalPointer = BaryonField[MetalNum];
     else if (SNColourNum != -1)
       MetalPointer = BaryonField[SNColourNum];
+    else if (NSMNum != -1)
+      MetalPointer = BaryonField[NSMNum];
   } // ENDELSE both metal types
 
   /* Flag points */

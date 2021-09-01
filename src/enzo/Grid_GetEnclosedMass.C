@@ -236,6 +236,15 @@ int grid::GetEnclosedMass(FLOAT star_pos[], float radius, float &mass,
   else
     SNColourNum = 0;
 
+  /* Find NSM colour field */
+
+  int UseColour_NSM = FALSE, NSMNum;
+  if ((NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields)) 
+      != -1)
+    UseColour_NSM = TRUE;
+  else
+    NSMNum = 0;
+
   /* Calculate temperature for cold gas accretion (use
      ComputeTemperatureField for non-DualEnergyFormalism).  Divide by
      TemperatureUnits for DualEnergyFormalism.
@@ -291,6 +300,8 @@ int grid::GetEnclosedMass(FLOAT star_pos[], float radius, float &mass,
 	    metallicity += BaryonField[MetalNum][index] * MassConversion;
 	  if (UseColour)
 	    metallicity += BaryonField[SNColourNum][index] * MassConversion;
+    if (UseColour_NSM)
+	    metallicity += BaryonField[NSMNum][index] * MassConversion;
 	  //OneOverRSqauredSum used in Grid_AddFeedbackSphere for MBHFeedback=1
 	  //imposed upperbound of 1/(2*CellWidth)^2
 	  OneOverRSquaredSum += min(1.0/dr2, 1.0/(4.0*CellWidthTemp*CellWidthTemp));  

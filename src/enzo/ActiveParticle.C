@@ -311,16 +311,25 @@ void ActiveParticleType::ConstructData(grid *_grid,
 
   } // ENDIF CoolingRate
 
-  /* If both metal fields exist, make a total metal field */
+  /* If all three metal fields (Pop I/II, III, and NSM) exist, create a field
+     that contains their sum. Also include if the NSM do not exist but PopI/II and III do. */
 
   if (flags.MetalField) {
     float *MetalPointer = NULL;
     float *TotalMetals = NULL;
     int MetallicityField;
 
-    MetallicityField = (MetalNum != -1 || SNColourNum != -1);
+    MetallicityField = (MetalNum != -1 || SNColourNum != -1 || NSMNum != -1);
+    if (MetalNum != -1 && SNColourNum != -1 && NSMNum != -1) {
+      TotalMetals = new float[size];
+      for (i = 0; i < size; i++)
+        TotalMetals[i] = _grid->BaryonField[MetalNum][i]
+                       + _grid->BaryonField[SNColourNum][i]
+                       + _grid->BaryonField[NSMNum][i];
+      MetalPointer = TotalMetals;
+    } // ENDIF all three metal types
 
-    if (MetalNum != -1 && SNColourNum != -1) {
+    else if (MetalNum != -1 && SNColourNum != -1) {
       TotalMetals = new float[size];
       for (i = 0; i < size; i++)
         TotalMetals[i] = _grid->BaryonField[MetalNum][i]
@@ -332,6 +341,8 @@ void ActiveParticleType::ConstructData(grid *_grid,
         MetalPointer = _grid->BaryonField[MetalNum];
       else if (SNColourNum != -1)
         MetalPointer = _grid->BaryonField[SNColourNum];
+      else if (NSMNum != -1)
+        MetalPointer = _grid->BaryonField[NSMNum];
     } // ENDELSE both metal types
     data.TotalMetals = MetalPointer;
   }

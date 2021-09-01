@@ -701,15 +701,20 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
     kdissH2INum = FindField(kdissH2I, FieldType, NumberOfBaryonFields);
   }
 
-  /* If both metal fields exist, make a total metal field */
+  /* If all three metal fields exist, make a total metal field */
 
   float *MetalPointer;
   float *TotalMetals = NULL;
   int MetallicityField;
 
-  MetallicityField = (MetalNum != -1 || SNColourNum != -1);
-
-  if (MetalNum != -1 && SNColourNum != -1) {
+  MetallicityField = (MetalNum != -1 || SNColourNum != -1 || NSMNum != -1);
+  if (MetalNum != -1 && SNColourNum != -1 && NSMNum != -1) {
+    TotalMetals = new float[size];
+    for (i = 0; i < size; i++)
+      TotalMetals[i] = BaryonField[MetalNum][i] + BaryonField[SNColourNum][i] + BaryonField[NSMNum][i];
+    MetalPointer = TotalMetals;
+  } // ENDIF all three metal types
+  else if (MetalNum != -1 && SNColourNum != -1) {
     TotalMetals = new float[size];
     for (i = 0; i < size; i++)
       TotalMetals[i] = BaryonField[MetalNum][i] + BaryonField[SNColourNum][i];
@@ -720,6 +725,8 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
       MetalPointer = BaryonField[MetalNum];
     else if (SNColourNum != -1)
       MetalPointer = BaryonField[SNColourNum];
+    else if (NSMNum != -1)
+      MetalPointer = BaryonField[NSMNum];
   } // ENDELSE both metal types
 
   //printf("Star type \n");

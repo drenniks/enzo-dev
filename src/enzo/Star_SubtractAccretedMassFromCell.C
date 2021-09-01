@@ -165,7 +165,9 @@ int Star::SubtractAccretedMassFromCell(void)
   if (SNColourNum >= 0)
     CurrentGrid->BaryonField[SNColourNum][index] *= factor;
   if (MBHColourNum > 0)
-    CurrentGrid->BaryonField[MBHColourNum][index] *= factor;    
+    CurrentGrid->BaryonField[MBHColourNum][index] *= factor; 
+  if (NSMNum > 0)
+    CurrentGrid->BaryonField[NSMNum][index] *= factor;    
 
   return SUCCESS;
 

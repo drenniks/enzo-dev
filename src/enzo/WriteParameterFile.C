@@ -1279,6 +1279,7 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "PopIII_NSMParticleID            = %"ISYM"\n", PopIII_NSMParticleID);
   fprintf(fptr, "PopIII_NSMExplosionEnergy       = %"GSYM"\n", PopIII_NSMExplosionEnergy);
   fprintf(fptr, "PopIII_NSMDelayTime             = %"GSYM"\n", PopIII_NSMDelayTime);
+  fprintf(fptr, "PopIII_NSMMetalMass             = %"GSYM"\n", PopIII_NSMMetalMass);
 
   /* Output current time */
   time_t ID;

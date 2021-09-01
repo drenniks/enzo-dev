@@ -46,9 +46,9 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
   float AccretedMass, DynamicalTime = 0, AvgDensity, AvgVelocity[MAX_DIMENSION];
   int StarType, i, l, dim, FirstLoop = TRUE, SphereTooSmall, 
     MBHFeedbackThermalRadiusTooSmall;
-  float MassEnclosed, Metallicity2, Metallicity3, ColdGasMass, 
+  float MassEnclosed, Metallicity2, Metallicity3, Metallicity4, ColdGasMass, 
     ColdGasFraction, initialRadius, tdyn_code;
-  float ShellMass, ShellMetallicity2, ShellMetallicity3, ShellColdGasMass, 
+  float ShellMass, ShellMetallicity2, ShellMetallicity3, ShellMetallicity4, ShellColdGasMass, 
     ShellVelocity[MAX_DIMENSION];
   LevelHierarchyEntry *Temp;
   HierarchyEntry *Temp2;
@@ -148,7 +148,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
 
 	Temp->GridData->GetEnclosedMassInShell(this, Radius-CellWidth, Radius, 
 					       ShellMass, ShellMetallicity2, 
-					       ShellMetallicity3,
+					       ShellMetallicity3, ShellMetallicity4,
 					       ShellColdGasMass, ShellVelocity);
 
 	Temp = Temp->NextGridThisLevel;
@@ -163,6 +163,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     values[1] = ShellMetallicity3;
     values[2] = ShellMass;
     values[3] = ShellColdGasMass;
+    values[4] = ShellMetallicity4;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       values[4+dim] = ShellVelocity[dim];
 
@@ -174,6 +175,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     ShellMetallicity3 = values[1];
     ShellMass = values[2];
     ShellColdGasMass = values[3];
+    ShellMetallicity4 = values[4];
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       ShellVelocity[dim] = values[4+dim];
 
@@ -186,6 +188,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     // non-zero.
     Metallicity2 = Metallicity2 * (MassEnclosed - ShellMass) + ShellMetallicity2;
     Metallicity3 = Metallicity3 * (MassEnclosed - ShellMass) + ShellMetallicity3;
+    Metallicity4 = Metallicity4 * (MassEnclosed - ShellMass) + ShellMetallicity4;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       AvgVelocity[dim] = AvgVelocity[dim] * (MassEnclosed - ShellMass) +
 	ShellVelocity[dim];
@@ -197,6 +200,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
 
     Metallicity2 /= MassEnclosed;
     Metallicity3 /= MassEnclosed;
+    Metallicity4 /= MassEnclosed;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       AvgVelocity[dim] /= MassEnclosed;
 
@@ -348,7 +352,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     }
     //#endif
 
-    deltaZ = Metallicity2 + Metallicity3;
+    deltaZ = Metallicity2 + Metallicity3 + Metallicity4;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       delta_vel[dim] = AvgVelocity[dim];
 

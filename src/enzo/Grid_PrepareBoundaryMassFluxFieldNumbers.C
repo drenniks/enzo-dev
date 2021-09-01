@@ -100,6 +100,7 @@ int grid::PrepareBoundaryMassFluxFieldNumbers(){
   if (MBHColourNum     != -1) BoundaryMassFluxFieldNumbers[count++] = MBHColourNum;
   if (Galaxy1ColourNum != -1) BoundaryMassFluxFieldNumbers[count++] = Galaxy1ColourNum;
   if (Galaxy2ColourNum != -1) BoundaryMassFluxFieldNumbers[count++] = Galaxy2ColourNum;
+  if (NSMNum      != -1) BoundaryMassFluxFieldNumbers[count++] = NSMNum;
 
   return SUCCESS;
 }

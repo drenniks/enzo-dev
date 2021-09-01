@@ -119,6 +119,15 @@ int grid::ProjectToPlane2(FLOAT ProjectedFieldLeftEdge[],
   else
     SNColourNum = 0;
 
+  /* Find SN Colour field and set flag */
+
+  int NSMField = FALSE, NSMNum;
+  if ((NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields)) 
+      != -1)
+    NSMField = TRUE;
+  else
+    NSMNum = 0;
+
   if ((SNColourField || MetallicityField) && CoolData.metals != NULL)
     MetalCooling = JHW_METAL_COOLING;
 
@@ -300,6 +309,33 @@ int grid::ProjectToPlane2(FLOAT ProjectedFieldLeftEdge[],
     
     for (i = 0; i < size; i++)
       temp_field[i] = BaryonField[SNColourNum][i] / BaryonField[DensNum][i];
+
+    first_field = temp_field;
+    second_field = BaryonField[0];
+    //second_field = NULL;
+    ProjType = 4;
+    ConversionFactor = DensityConversion/CoolData.SolarMetalFractionByMass;
+    //ConversionFactor = One;
+
+    FORTRAN_NAME(projplane)(first_field, second_field,
+                             BaryonField[NumberOfBaryonFields], &One,
+                             &ProjectionSmooth,
+			  GridDimension, GridDimension+1,
+                              GridDimension+2, CellWidth[0],
+                          ProjectedField[3], ProjectedFieldDims+adim, 
+                              ProjectedFieldDims+bdim, &ProjectedFieldCellSize,
+                          &ProjectionDimension, &ProjType, &ConversionFactor,
+                          GridLeftEdge, GridFarLeftEdge, GridRightEdge,
+                              ProjectedFieldLeftEdge, ProjectedFieldRightEdge,
+                          &start, &stop, &LeftCellFraction,&RightCellFraction);
+  }
+
+  /* 4a) NSM Colour weighted by density */
+
+  if (NSMField == TRUE) {
+    
+    for (i = 0; i < size; i++)
+      temp_field[i] = BaryonField[NSMNum][i] / BaryonField[DensNum][i];
 
     first_field = temp_field;
     second_field = BaryonField[0];

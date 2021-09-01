@@ -31,7 +31,7 @@ int GetUnits(float *DensityUnits, float *LengthUnits,
 
 int grid::GetEnclosedMassInShell(Star *star, float radius0, float radius1, 
 				 float &mass, float &metallicity2, 
-				 float &metallicity3,
+				 float &metallicity3, float &metallicity4,
 				 float &coldgas_mass, float AvgVelocity[])
 {
 
@@ -103,6 +103,15 @@ int grid::GetEnclosedMassInShell(Star *star, float radius0, float radius1,
     UseColour = TRUE;
   else
     SNColourNum = 0;
+  
+  /* Find NSM colour field */
+
+  int UseColour_NSM = FALSE, NSMNum;
+  if ((NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields)) 
+      != -1)
+    UseColour_NSM = TRUE;
+  else
+    NSMNum = 0;
 
   /* Calculate temperature for cold gas accretion (use
      ComputeTemperatureField for non-DualEnergyFormalism).  Divide by
@@ -161,6 +170,8 @@ int grid::GetEnclosedMassInShell(Star *star, float radius0, float radius1,
 	    metallicity2 += BaryonField[MetalNum][index] * MassConversion;
 	  if (UseColour)
 	    metallicity3 += BaryonField[SNColourNum][index] * MassConversion;
+    if (UseColour_NSM)
+	    metallicity4 += BaryonField[NSMNum][index] * MassConversion;
 	}
 	
       }

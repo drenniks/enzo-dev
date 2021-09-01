@@ -216,7 +216,7 @@ int WriteStreamData(LevelHierarchyEntry *LevelArray[], int level,
   for (i = 0; i < MAX_MOVIE_FIELDS; i++) {
     if (MovieDataField[i] == INT_UNDEFINED) break;
     if (!(MovieDataField[i] == Density || MovieDataField[i] == SNColour ||
-	  MovieDataField[i] == Metallicity)) {
+	  MovieDataField[i] == Metallicity || MovieDataField[i] == NSMRProcess)) {
       FineGrainWriting = TRUE;
       break;
     } // ENDIF not Density or Metallicity

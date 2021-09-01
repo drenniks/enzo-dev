@@ -1373,6 +1373,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line, "PopIII_NSMParticleID       = %"ISYM, &PopIII_NSMParticleID);
     ret += sscanf(line, "PopIII_NSMExplosionEnergy  = %"GSYM, &PopIII_NSMExplosionEnergy);
     ret += sscanf(line, "PopIII_NSMDelayTime        = %"FSYM, &PopIII_NSMDelayTime);
+    ret += sscanf(line, "PopIII_NSMMetalMass        = %"FSYM, &PopIII_NSMMetalMass);
 
     /* If the dummy char space was used, then make another. */
 

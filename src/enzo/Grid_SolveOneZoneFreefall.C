@@ -119,14 +119,15 @@ int grid::SolveOneZoneFreefall()
 
   /* Metal cooling codes. */
 
-  int MetalNum = 0, SNColourNum = 0;
+  int MetalNum = 0, SNColourNum = 0, NSMNum = 0;
   int MetalFieldPresent = FALSE;
 
   // First see if there's a metal field (so we can conserve species in
   // the solver)
   MetalNum = FindField(Metallicity, FieldType, NumberOfBaryonFields);
   SNColourNum = FindField(SNColour, FieldType, NumberOfBaryonFields);
-  MetalFieldPresent = (MetalNum != -1 || SNColourNum != -1);
+  NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields);
+  MetalFieldPresent = (MetalNum != -1 || SNColourNum != -1 || NSMNum != -1);
 
   /* Calculate new density and energy. */
 

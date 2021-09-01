@@ -935,6 +935,8 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
 	      BaryonField[SNColourNum][index] *= factor;
 	    if (Metal2Num > 0)
 	      BaryonField[Metal2Num][index] *= factor;
+		if (NSMNum > 0)
+	      BaryonField[NSMNum][index] *= factor;
 
 	    CellsModified++;
 

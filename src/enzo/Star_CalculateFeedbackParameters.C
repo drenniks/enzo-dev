@@ -212,8 +212,8 @@ void Star::CalculateFeedbackParameters(float &Radius,
       if (this->Mass < 20.0) { // Normal Type II  // Should I just make this the case for all NSM? 
 	SNEnergy = PopIII_NSMExplosionEnergy; // erg?
   printf("PopIII_NSMExplosionEnergy (CalculateFeedbackParameters) = %g \n", SNEnergy);
-	MetalMass = .01;  // Fit to Nomoto+06 -- adjust this? // Need to adjust this for NS binary
-  //MetalMass *= 2.0;
+	MetalMass = PopIII_NSMMetalMass; 
+  //MetalMass = .01;  // Fit to Nomoto+06 -- adjust this? // Need to adjust this for NS binary
       } else { // Hypernova (should we add the "failed" SNe?)
 	bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);
 	frac = (SNExplosionMass[bin+1] - this->Mass) / 

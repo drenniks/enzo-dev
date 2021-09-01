@@ -2812,6 +2812,7 @@ int zEulerSweep(int j, int NumberOfSubgrids, fluxes *SubgridFluxes[],
   int GetEnclosedMassInShell(Star *star, float radius0, float radius1, 
 			     float &mass, float &metallicity2, 
 			     float &metallicity3,
+              float &metallicity4,
 			     float &coldgas_mass, float AvgVelocity[]);
 
   int RemoveParticle(int ID, bool disable=false);

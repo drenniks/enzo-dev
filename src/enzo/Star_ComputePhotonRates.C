@@ -48,7 +48,7 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
 
   switch(ABS(this->type)) {
 
-    /* Luminosities from Schaerer (2002) */
+    /* Luminosities from Schaerer (2002) */ // No mass loss
 
   case PopIII:
     nbins = (PopIIIHeliumIonization &&
@@ -67,10 +67,10 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
       Q[2] = pow(10.0, 26.71 + 18.14*x - 3.58*x2);
       Q[3] = pow(10.0, 44.03 + 4.59*x  - 0.77*x2);
     } else if (_mass > 5 && _mass <= 9) {
-      Q[0] = pow(10.0, 39.29 + 8.55*x);
-      Q[1] = pow(10.0, 29.24 + 18.49*x);
-      Q[2] = pow(10.0, 26.71 + 18.14*x - 3.58*x2);
-      Q[3] = pow(10.0, 44.03 + 4.59*x  - 0.77*x2);
+      Q[0] = pow(10.0, 39.29 + 8.55*x); // H
+      Q[1] = pow(10.0, 29.24 + 18.49*x); // He0
+      Q[2] = pow(10.0, 26.71 + 18.14*x - 3.58*x2); // He+
+      Q[3] = pow(10.0, 44.03 + 4.59*x  - 0.77*x2); // H2
     } // ENDELSE
     else {
       for (i = 0; i < nbins; i++) Q[i] = 0.0;

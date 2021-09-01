@@ -89,9 +89,17 @@ int grid::SubtractAccretedMassFromSphere(Star *cstar, int level, float radius, f
               MBHColourNum, Galaxy1ColourNum, Galaxy2ColourNum, NSMNum) == FAIL)
     ENZO_FAIL("Error in grid->IdentifyColourFields.\n");
 
-  MetalNum = max(MetalNum, SNColourNum);
-  MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
+  // MetalNum = max(MetalNum, SNColourNum);
+  // MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
 
+  if (PopIII_NeutronStarMergers){
+    MetalNum = max(MetalNum, NSMNum);
+    MetallicityField = (MetalNum > 0) ? TRUE : FALSE; 
+  }
+  else {
+    MetalNum = max(MetalNum, SNColourNum);
+    MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
+  }
 
   /***********************************************************************
                   MASS SUBTRACTION AFTER ACCRETION ONTO MBH

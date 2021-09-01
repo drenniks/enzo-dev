@@ -50,11 +50,18 @@ int grid::FlagCellsToBeRefinedByMetallicity(int level)
 
   /* Find metallicity field.  If no metallicity field exists, quit and
      yell at user. */
-  int MetalNum, SNColourNum;
+  int MetalNum, SNColourNum, NSMNum;
   MetalNum = FindField(Metallicity, FieldType, NumberOfBaryonFields);
   SNColourNum = FindField(SNColour, FieldType, NumberOfBaryonFields);
+  NSMNum = FindField(NSMRProcess, FieldType, NumberOfBaryonFields);
 
-  if (MetalNum < 0 && SNColourNum < 0) {
+  if (PopIII_NeutronStarMergers){
+    if (MetalNum < 0 && SNColourNum < 0 && NSMNum < 0) {
+    fprintf(stderr,"FlagCellsToBeRefinedByMetallicity: no metallicity field!\n");
+    return -1;
+    }
+  }
+  else if (MetalNum < 0 && SNColourNum < 0) {
     fprintf(stderr,"FlagCellsToBeRefinedByMetallicity: no metallicity field!\n");
     return -1;
   }
@@ -85,7 +92,12 @@ int grid::FlagCellsToBeRefinedByMetallicity(int level)
 	  >= MetallicityRefinementMinMetallicity &&
 	  (BaryonField[DensNum][i] > MetallicityRefinementMinDensity))
 	FlaggingField[i]++;
-
+  if (NSMNum > 0)
+    for(i=0; i<size; i++)
+      if( (BaryonField[NSMNum][i]/BaryonField[DensNum][i])/0.022 
+	  >= MetallicityRefinementMinMetallicity &&
+	  (BaryonField[DensNum][i] > MetallicityRefinementMinDensity))
+	FlaggingField[i]++;
 
   /* Count number of flagged Cells. */ 
   for (i = 0; i < size; i++) {

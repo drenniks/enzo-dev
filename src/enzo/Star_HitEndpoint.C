@@ -20,16 +20,30 @@
 #include "Hierarchy.h"
 #include "TopGridData.h"
 #include "LevelHierarchy.h"
+#include "phys_constants.h"
 
 #define NO_DEATH 0
 #define KILL_STAR 1
 #define KILL_ALL 2
+
+int GetUnits(float *DensityUnits, float *LengthUnits,
+             float *TemperatureUnits, float *TimeUnits,
+             float *VelocityUnits, FLOAT Time);
 
 int Star::HitEndpoint(FLOAT Time)
 {
 
   const float TypeIILowerMass = 11, TypeIIUpperMass = 40.1;
   const float PISNLowerMass = 140, PISNUpperMass = 260;
+
+  float DensityUnits = 1.0, LengthUnits = 1.0, TemperatureUnits = 1,
+    TimeUnits = 1.0, VelocityUnits = 1.0;
+
+  if (GetUnits(&DensityUnits, &LengthUnits, &TemperatureUnits,
+               &TimeUnits, &VelocityUnits, Time) == FAIL) {
+    fprintf(stderr, "Error in GetUnits.\n");
+    return FAIL;
+  }
 
   /* First check if the star's past its lifetime and then check other
      constrains based on its star type */
@@ -98,7 +112,7 @@ int Star::HitEndpoint(FLOAT Time)
     if (PopIII_NeutronStarMergers){
       // If a Pop III star is going supernova, only kill it after it has
       // applied its feedback sphere
-      float initial_mass;
+      float initial_mass, initial_mass2;
 
              if (this->FeedbackFlag == DEATH) {
 
@@ -112,21 +126,27 @@ int Star::HitEndpoint(FLOAT Time)
                 initial_mass = this->FinalMass/2.0;
                 // Check initial mass of Pop III stars and find remnant mass
                 // For now, assuming symmetric NS binary system
+                initial_mass2 = initial_mass*initial_mass;
+
+                // Masses from Heger et al. 2010 Fig. 6
+                if (10.0 <= initial_mass <= 15.0) {
+                  this->Mass = (0.0082 * initial_mass2 + 0.1221*initial_mass - 0.9775) * 2;
+                }
                 // Masses from Woosley et al. 2002 Fig. 12
-                if (8.0 < initial_mass < 10.6) {
-                  this->Mass = (0.162*initial_mass - 0.071) * 2;
-                }
-                else if (10.6 <= initial_mass <= 19.0) {
-                  this->Mass = 1.66 * 2;
-                }
-                else if (19.0 < initial_mass < 25.9) {
-                  this->Mass = (0.108*initial_mass - 0.387) * 2;
-                }
-                //  this->Mass = 1.4;  // Need to change mass
-                // Need to change mass to mass of NS given initial mass of Pop III binary
+                //if (8.0 < initial_mass < 10.6) {
+                //  this->Mass = (0.162*initial_mass - 0.071) * 2;
+                //}
+                //else if (10.6 <= initial_mass <= 19.0) {
+                //  this->Mass = 1.66 * 2;
+                //}
+                //else if (19.0 < initial_mass < 25.9) {
+                //  this->Mass = (0.108*initial_mass - 0.387) * 2;
+                //}
+
+
                 // Set lifetime so the time of death is exactly now.
                 //this->LifeTime = Time - this->BirthTime;
-                this->LifeTime = PopIII_NSMDelayTime; // * TimeUnits; code time for right now
+                this->LifeTime = PopIII_NSMDelayTime*1.0e6*yr_s/TimeUnits; // * TimeUnits; code time for right now
                 this->BirthTime = Time;
                 this->type = NS_Binary;
                 //this->FeedbackFlag = POPIII_BINARY_SN;

@@ -1205,4 +1205,7 @@ EXTERN float MagneticSupernovaRadius;
 EXTERN float MagneticSupernovaDuration;
 EXTERN float MagneticSupernovaEnergy;
 
+/* Metal yield model for Pop III stars */
+EXTERN int PopIII_MetalYield;
+
 #endif

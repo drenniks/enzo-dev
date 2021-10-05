@@ -1274,6 +1274,9 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr,"MagneticSupernovaEnergy = %"GSYM"\n",MagneticSupernovaEnergy);
   fprintf(fptr,"MagneticSupernovaDuration = %"GSYM"\n",MagneticSupernovaDuration);
 
+  /* Metal yield model for Pop III stars */
+  fprintf(fptr, "PopIII_MetalYield = %"ISYM"\n", PopIII_MetalYield);
+
   /* Output current time */
   time_t ID;
   ID = time(NULL);

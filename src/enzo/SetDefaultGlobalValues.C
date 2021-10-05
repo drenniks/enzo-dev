@@ -1050,5 +1050,8 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   MagneticSupernovaDuration = 5e4  ;    // Total duration of magnetic feedback in years
   MagneticSupernovaEnergy = 1.0e51;    // Total energy (ergs) injected per star particle (supernova)
 
+  /* Metal yield model for Pop III stars */
+  PopIII_MetalYield = 0; // Nomoto+06 model used
+  
   return SUCCESS;
 }

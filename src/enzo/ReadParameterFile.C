@@ -1368,6 +1368,9 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     ret += sscanf(line,"MagneticSupernovaEnergy = %"FSYM, &MagneticSupernovaEnergy);
     ret += sscanf(line,"MagneticSupernovaDuration = %"FSYM, &MagneticSupernovaDuration);
 
+    // Metal yield model for Pop III stars
+    ret += sscanf(line,"PopIII_MetalYield = %"ISYM, &PopIII_MetalYield);
+
     /* If the dummy char space was used, then make another. */
 
     if (*dummy != 0) {

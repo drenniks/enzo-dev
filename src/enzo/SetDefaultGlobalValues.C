@@ -1053,7 +1053,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   /* Neutron Star Mergers from PopIII stars */
   PopIII_NeutronStarMergers = 0;
   PopIII_NSMParticleID = 0;
-  PopIII_NSMExplosionEnergy = 3.16228e50; // erg
+  PopIII_NSMExplosionEnergy = 1e50; // erg
   PopIII_NSMDelayTime = 100; // Myr
   PopIII_NSMMetalMass = 0.01;
 

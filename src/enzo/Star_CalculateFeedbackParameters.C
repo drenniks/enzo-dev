@@ -48,18 +48,7 @@ void Star::CalculateFeedbackParameters(float &Radius,
 
   const float TypeIILowerMass = 11, TypeIIUpperMass = 40.1;
   const float PISNLowerMass = 140, PISNUpperMass = 260;
-
-  // From Nomoto et al. (2006)
-  const float HypernovaMetals[] = {3.36, 3.53, 5.48, 7.03, 8.59}; // SolarMass
-  const float HypernovaEnergy[] = {10, 10, 20, 25, 30}; // 1e51 erg 
-  const float CoreCollapseMetals[] = {3.63, 4.41, 6.71, 8.95, 11.19}; // SolarMass
-  const float CoreCollapseEnergy[] = {1, 1, 1, 1, 1}; // 1e51 erg
-
-  const float SNExplosionMass[] = {19.99, 25, 30, 35, 40.01};  // SolarMass
-  const float *SNExplosionMetals = (PopIIIUseHypernova ==TRUE) ? 
-    HypernovaMetals : CoreCollapseMetals;
-  const float *SNExplosionEnergy = (PopIIIUseHypernova ==TRUE) ? 
-    HypernovaEnergy : CoreCollapseEnergy;
+  float LowerMass, UpperMass;  
 
   float StarLevelCellWidth, tdyn, frac;
   double EjectaVolume, SNEnergy, HeliumCoreMass, Delta_SF, MetalMass;
@@ -94,21 +83,107 @@ void Star::CalculateFeedbackParameters(float &Radius,
 	DensityUnits;
     } 
     
-    // Type II SNe
-    else if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
-      if (this->Mass < 20.0) { // Normal Type II
-	SNEnergy = 1e51;
-	MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
-      } else { // Hypernova (should we add the "failed" SNe?)
-	bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);
-	frac = (SNExplosionMass[bin+1] - this->Mass) / 
-	  (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
-	SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
-			   frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
-	MetalMass = (SNExplosionMetals[bin] + 
-		     frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
-      }
-      EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
+    // Metal Yield Models
+    else {
+        // Nomoto+06
+        if (PopIII_MetalYield == 0){
+            // Type II SNe
+            const float HypernovaMetals[] = {3.36, 3.53, 5.48, 7.03, 8.59}; // SolarMass
+            const float HypernovaEnergy[] = {10, 10, 20, 25, 30}; // 1e51 erg 
+            const float CoreCollapseMetals[] = {3.63, 4.41, 6.71, 8.95, 11.19}; // SolarMass
+            const float CoreCollapseEnergy[] = {1, 1, 1, 1, 1}; // 1e51 erg
+
+            const float SNExplosionMass[] = {19.99, 25, 30, 35, 40.01};
+            const float *SNExplosionMetals = (PopIIIUseHypernova ==TRUE) ? 
+              HypernovaMetals : CoreCollapseMetals;
+            const float *SNExplosionEnergy = (PopIIIUseHypernova ==TRUE) ? 
+              HypernovaEnergy : CoreCollapseEnergy;
+            if (this->Mass >= TypeIILowerMass && this->Mass <= TypeIIUpperMass) {
+                if (this->Mass < 20.0) { // Normal Type II
+                    SNEnergy = 1e51;
+                    MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+                } else { // Hypernova (should we add the "failed" SNe?)
+                    bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 5, 5);
+                    frac = (SNExplosionMass[bin+1] - this->Mass) / 
+                    (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+                    SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
+                        frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+                    MetalMass = (SNExplosionMetals[bin] + 
+                        frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+                }
+                EjectaMetalDensity = MetalMass * SolarMass / EjectaVolume / DensityUnits;
+            }
+        }
+        // Limongi+12
+        else if (PopIII_MetalYield == 1){
+            LowerMass = 13.0;
+            UpperMass = 80;
+            
+            const float SNExplosionMass[] = {13, 15, 20, 25, 30, 35, 50, 80}; // SolarMass
+            const float SNExplosionEnergy[] = {0.5, 0.74, 0.97, 1.1, 1.58, 1.28, 2.59, 5.22}; // 1e51 erg
+            const float SNExplosionMetals[] = {0.354, 0.659, 1.897, 3.602, 5.076, 7.087, 12.499, 24.433}; // SolarMass
+            if (this->Mass >= LowerMass && this->Mass <= UpperMass) {
+                if (this->Mass < LowerMass) { // Normal Type II
+                    SNEnergy = 1e51;
+                    MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+                } else {
+                    bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 8, 8);
+                    frac = (SNExplosionMass[bin+1] - this->Mass) / 
+                    (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+                    SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
+                        frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+                    MetalMass = (SNExplosionMetals[bin] + 
+                        frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+                }
+            }
+        }   
+        // Takahashi+14 Rotating
+        else if (PopIII_MetalYield == 2){
+            LowerMass = 12.0;
+            UpperMass = 140;
+            
+            const float SNExplosionMass[] = {12, 15, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140}; // SolarMass
+            const float SNExplosionEnergy[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}; // 1e51 erg
+            const float SNExplosionMetals[] = {2.448, 3.674, 6.191, 11.1, 16.45, 23.9, 28.58, 33.74, 42.48, 50.43, 59.58, 70.13}; // SolarMass
+            if (this->Mass >= LowerMass && this->Mass <= UpperMass) {
+                if (this->Mass < LowerMass) { // Normal Type II
+                    SNEnergy = 1e51;
+                    MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+                } else {
+                    bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 12, 12);
+                    frac = (SNExplosionMass[bin+1] - this->Mass) / 
+                    (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+                    SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
+                        frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+                    MetalMass = (SNExplosionMetals[bin] + 
+                        frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+                }
+            }
+        }
+        // Takahashi+14 Non-rotating
+        else if (PopIII_MetalYield == 2){
+            LowerMass = 12.0;
+            UpperMass = 140;
+            
+            const float SNExplosionMass[] = {12, 15, 20, 30, 40, 50, 60, 70, 80, 100, 120, 140}; // SolarMass
+            const float SNExplosionEnergy[] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}; // 1e51 erg
+            const float SNExplosionMetals[] = {2.516, 3.596, 5.73, 10.28, 15.07, 19.35, 23.63, 28.95, 33.81, 43.6, 53.33, 63.18}; // SolarMass
+            if (this->Mass >= LowerMass && this->Mass <= UpperMass) {
+                if (this->Mass < LowerMass) { // Normal Type II
+                    SNEnergy = 1e51;
+                    MetalMass = 0.1077 + 0.3383 * (this->Mass - 11.0);  // Fit to Nomoto+06
+                } else {
+                    bin = search_lower_bound((float*)SNExplosionMass, this->Mass, 0, 12, 12);
+                    frac = (SNExplosionMass[bin+1] - this->Mass) / 
+                    (SNExplosionMass[bin+1] - SNExplosionMass[bin]);
+                    SNEnergy = 1e51 * (SNExplosionEnergy[bin] + 
+                        frac * (SNExplosionEnergy[bin+1] - SNExplosionEnergy[bin]));
+                    MetalMass = (SNExplosionMetals[bin] + 
+                        frac * (SNExplosionMetals[bin+1] - SNExplosionMetals[bin]));
+                }
+            }
+
+        }
     }
     EjectaThermalEnergy = SNEnergy / (Mass * SolarMass) / VelocityUnits /
       VelocityUnits;

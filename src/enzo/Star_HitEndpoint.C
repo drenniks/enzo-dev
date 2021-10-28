@@ -130,7 +130,7 @@ int Star::HitEndpoint(FLOAT Time)
 
                 // Masses from Heger et al. 2010 Fig. 6
                 if (10.0 <= initial_mass <= 15.0) {
-                  this->Mass = (0.00816 * initial_mass2 + 0.1221*initial_mass - 0.977) * 2;
+                  this->Mass = (0.01319 * initial_mass2 - 0.0421*initial_mass + 0.301) * 2;
                 }
                 // Masses from Woosley et al. 2002 Fig. 12
                 //if (8.0 < initial_mass < 10.6) {

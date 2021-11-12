@@ -103,7 +103,7 @@ int grid::Group_WriteGrid(FILE *fptr, char *base_name, int grid_id, HDF5_hid_t f
      "particle_jet_y", "particle_jet_z", "typeia_fraction"};
 #else
   char *ParticleAttributeLabel[] = 
-    {"creation_time", "dynamical_time", "metallicity_fraction", "typeia_fraction"};
+    {"creation_time", "dynamical_time", "metallicity_fraction", "typeia_fraction", "NSM_metallicity_fraction", "P3_metallicity_fraction", "P2_metallicity_fraction"};
 #endif
   char *SmoothedDMLabel[] = {"Dark_Matter_Density", "Velocity_Dispersion",
 			     "Particle_x-velocity", "Particle_y-velocity",
@@ -825,7 +825,7 @@ int grid::Group_WriteGrid(FILE *fptr, char *base_name, int grid_id, HDF5_hid_t f
     /* Copy particle attributes to temp and write them. */
 
     for (j = 0; j < NumberOfParticleAttributes; j++) {
-
+      printf("NumberOfParticleAttributes = %d", NumberOfParticleAttributes);
       this->write_dataset(1, TempIntArray, ParticleAttributeLabel[j],
           group_id, HDF5_REAL, (VOIDP) ParticleAttribute[j], FALSE);
     }

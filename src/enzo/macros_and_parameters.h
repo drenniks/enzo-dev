@@ -83,7 +83,7 @@
 #ifdef WINDS 
 #define MAX_NUMBER_OF_PARTICLE_ATTRIBUTES  7
 #else
-#define MAX_NUMBER_OF_PARTICLE_ATTRIBUTES  4
+#define MAX_NUMBER_OF_PARTICLE_ATTRIBUTES  7
 #endif
 
 #define MAX_TIME_ACTIONS                   10

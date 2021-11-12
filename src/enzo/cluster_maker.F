@@ -13,7 +13,10 @@ c
      &                      xp, yp, zp, up, vp, wp,
      &                      mp, tdp, tcp, metalf,
      &                      type, ctype, justburn, iradtrans,
-     &                      imetalSNIa, metalSNIa, metalfSNIa)
+     &                      imetalSNIa, metalSNIa, metalfSNIa,
+     &                      imetalNSM, metalNSM, metalfNSM,
+     &                      metalP2, metalfP2,
+     &                      metalP3, metalfP3)
 c
 c  CREATES JEANS-RESOLVED STAR PARTICLES
 c
@@ -36,6 +39,8 @@ c    modified pop3_maker to model stellar clusters using radiative feedback
 c  modified6: 20 Feb 2008 by JHW
 c    added metalSNIa & metalfSNIa; included feedback from SN Ia/PN
 c    (original changes by M. Ryan Joung)
+c  modified7: 11 Nov 2021 by Danielle Skinner
+c    added metalNSM, metalP2, metalP3
 c
 c  INPUTS:
 c
@@ -61,6 +66,7 @@ c    metalcrit- critical value for primordial star formation
 c    imetalSNIa - SN Ia metallicity flag (0 - none, 1 - yes)
 c    level - current level of refinement
 c    procnum - processor number (for output)
+c    imetalNSM - NSM metallicity flag (0 - none, 1 - yes)
 c
 c  OUTPUTS:
 c
@@ -77,6 +83,9 @@ c    type     - particle types
 c    ctype    - current type to set the particles to
 c    justburn     - time-weighted mass of star formation (code units)
 c    metalfSNIa - metallicity fraction of particle (from SN Ia) ! MKRJ
+c    metalfNSM - metallicity fraction of particle (from NSM)
+c    metalfP2 - metallicity fraction of particle (from P2)
+c    metalfP3 - metallicity fraction of particle (from P3)
 c
 c
 c-----------------------------------------------------------------------
@@ -87,12 +96,15 @@ c
 c  Arguments
 c
       INTG_PREC nx, ny, nz, ibuff, nmax, np, level, imetal, imethod
-      INTG_PREC procnum, ctype, iradtrans, imulti, imetalSNIa
+      INTG_PREC procnum, ctype, iradtrans, imulti, imetalSNIa, imetalNSM
       R_PREC    formleft(3), formright(3)
       R_PREC    d(nx,ny,nz), dm(nx,ny,nz), temp(nx,ny,nz)
       R_PREC    u(nx,ny,nz), v(nx,ny,nz), w(nx,ny,nz)
       R_PREC    r(nx,ny,nz), cooltime(nx,ny,nz), metal(nx,ny,nz)
       R_PREC    metalSNIa(nx,ny,nz), metalfSNIa(nmax)
+      R_PREC    metalNSM(nx,ny,nz), metalfNSM(nmax)
+      R_PREC    metalP2(nx,ny,nz), metalfP2(nmax)
+      R_PREC    metalP3(nx,ny,nz), metalfP3(nmax)
       R_PREC    dt, dx, z
       R_PREC    d1, x1, v1, t1, justburn
       P_PREC xstart, ystart, zstart, t
@@ -351,6 +363,11 @@ c                  metalf(ii) = metal(i,j,k)/d(i,j,k)
                endif
                if (imetalSNIa .eq. 1) then
                   metalfSNIa(ii) = metalSNIa(i,j,k)
+               endif
+               if (imetalNSM .eq. 1) then
+                  metalfNSM(ii) = metalNSM(i,j,k)
+                  metalfP2(ii) = metalP2(i,j,k)
+                  metalfP3(ii) = metalP3(i,j,k)
                endif
 c
 c              Remove mass from grid

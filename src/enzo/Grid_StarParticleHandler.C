@@ -467,7 +467,10 @@ extern "C" void FORTRAN_NAME(cluster_maker)
    FLOAT *xp, FLOAT *yp, FLOAT *zp, float *up, float *vp, float *wp, 
    float *mp, float *tdp, float *tcp, float *metalf, 
    int *type, int *ctype, float *justburn, int *iradtrans,
-   int *imetalSNIa, float *metalSNIa, float *metalfSNIa);
+   int *imetalSNIa, float *metalSNIa, float *metalfSNIa,
+   int *imetalNSM, float *metalNSM, float*metalfNSM,
+   float *metalP2, float*metalfP2,
+   float *metalP3, float*metalfP3);
 
 
 int sink_maker(int *nx, int *ny, int *nz, int *size,
@@ -1015,9 +1018,10 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
 	 tg->ParticleAttribute[1], tg->ParticleAttribute[0], 
 	 tg->ParticleAttribute[2], tg->ParticleType, &StarClusterType, 
 	 &RadiationData.IntegratedStarFormation, &RadiativeTransfer,
-	 &StarMakerTypeIaSNe, BaryonField[MetalIaNum], tg->ParticleAttribute[3]);
-
-
+	 &StarMakerTypeIaSNe, BaryonField[MetalIaNum], tg->ParticleAttribute[3],
+    &PopIII_NeutronStarMergers, BaryonField[NSMNum], tg->ParticleAttribute[4],
+    BaryonField[SNColourNum], tg->ParticleAttribute[5],
+    BaryonField[MetalNum], tg->ParticleAttribute[6]);
     }
 
     if (STARMAKE_METHOD(MBH_PARTICLE)) {

@@ -115,10 +115,10 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
   MetallicityField = (MetalNum > 0) ? TRUE : FALSE;
   if (MetalNum > 0 && SNColourNum > 0 && cstar->type == PopIII)
     MetalNum = SNColourNum;
-	printf("MetalNum (PopIII) = %d \n", MetalNum);
+	//printf("MetalNum (PopIII) = %d \n", MetalNum);
   if (MetalNum > 0 && SNColourNum > 0 && cstar->type == PopIII_Binary)
     MetalNum = SNColourNum;
-	printf("MetalNum (PopIII_Binary) = %d \n", MetalNum);
+	//printf("MetalNum (PopIII_Binary) = %d \n", MetalNum);
   if (MetalNum > 0 && NSMNum > 0 && cstar->type == NS_Binary)
 	MetalNum = NSMNum;
 

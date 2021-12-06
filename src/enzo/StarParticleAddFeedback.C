@@ -228,7 +228,7 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 	     EjectaMetalDensity, EjectaThermalEnergy, Q_HI, sigma, deltaE, 
 	     CellsModified);
     } // ENDIF
-    printf("EjectaThermalEnergy in StarParticleAddFeedback = %d \n", EjectaThermalEnergy);
+    //printf("EjectaThermalEnergy in StarParticleAddFeedback = %d \n", EjectaThermalEnergy);
 //    fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 //	    "Radius = %e pc_cm, changed %"ISYM" cells.\n", 
 //	    cstar->ReturnID(), level, influenceRadius*LengthUnits/pc_cm, CellsModified); 

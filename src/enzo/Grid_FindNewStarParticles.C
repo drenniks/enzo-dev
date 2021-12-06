@@ -33,7 +33,7 @@ int grid::FindNewStarParticles(int level)
   if (NumberOfParticles == 0)
     return SUCCESS;
 
-printf("Number of Particles = %d \n", NumberOfParticles);
+// printf("Number of Particles = %d \n", NumberOfParticles);
 
   int i;
   Star *NewStar, *cstar;

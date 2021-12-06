@@ -551,12 +551,14 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
     
     /* Add particle attributes for NSM. */
     if (PopIII_NeutronStarMergers) {
-      for (j = NumberOfParticleAttributes; j < NumberOfParticleAttributes + 3; j++) {
-  ParticleAttribute[j] = new float[NumberOfParticles];
-  for (i=0; i < NumberOfParticles; i++)
-    ParticleAttribute[j][i] = 0;
-      }
-      NumberOfParticleAttributes += 3; 
+      if (NumberOfParticleAttributes != 7) {
+          NumberOfParticleAttributes = 7;
+        }
+      for (j = 3; j < NumberOfParticleAttributes; j++) {
+        ParticleAttribute[j] = new float[NumberOfParticles];
+        for (i=0; i < NumberOfParticles; i++)
+          ParticleAttribute[j][i] = 0;
+          }
     } 
 
     delete [] temp;

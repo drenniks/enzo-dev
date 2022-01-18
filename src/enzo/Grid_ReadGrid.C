@@ -982,6 +982,14 @@ int grid::ReadGrid(FILE *fptr, int GridID, char DataFilename[],
 	  
 	} 
 	
+	if (PopIII_ParticleAttributes) {
+          for (j = 3; j < NumberOfParticleAttributes; j++) {
+      ParticleAttribute[j] = new float[NumberOfParticles];
+      for (i=0; i < NumberOfParticles; i++)
+        ParticleAttribute[j][i] = 0;
+          }
+        }
+
 	/* Read ParticleAttributes. */
 	if (AddParticleAttributes) {
 	  for (j = 0; j < NumberOfParticleAttributes; j++) {

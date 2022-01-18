@@ -149,11 +149,16 @@ int ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData,
       if (StarMakerTypeIaSNe) NumberOfParticleAttributes++;
       if (StarMakerTypeIISNeMetalField) NumberOfParticleAttributes++;
       AddParticleAttributes = TRUE;
+      if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      PopIII_ParticleAttributes = TRUE;
     } else {
       NumberOfParticleAttributes = 0;
     }
 
   }
+
+  if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      PopIII_ParticleAttributes = TRUE;
 
   /* Read Boundary condition info. */
   fprintf(stderr, "fopen: opening boundary condition file: %s\n", MetaData.BoundaryConditionName);
@@ -373,6 +378,7 @@ int ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData,
      this parameter to later data. */
 
   AddParticleAttributes = FALSE;
+  PopIII_ParticleAttributes = FALSE;
 
   if (io_log)
     fclose(log_fptr);

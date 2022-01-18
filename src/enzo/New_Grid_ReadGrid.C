@@ -520,7 +520,18 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
  
     }
  
- 
+ /* Add particle attributes for NSM. */
+    if (PopIII_ParticleAttributes) {
+      //if (NumberOfParticleAttributes != 7) {
+      //    NumberOfParticleAttributes = 7;
+      //  }
+      for (j = 3; j < NumberOfParticleAttributes; j++) {
+        ParticleAttribute[j] = new float[NumberOfParticles];
+        for (i=0; i < NumberOfParticles; i++)
+          ParticleAttribute[j][i] = 0;
+          }
+    }
+
     /* Read ParticleAttributes. */
     if (AddParticleAttributes) {
       for (j = 0; j < NumberOfParticleAttributes; j++) {
@@ -549,17 +560,7 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
     }
     } // ENDELSE add particle attributes
     
-    /* Add particle attributes for NSM. */
-    if (PopIII_NeutronStarMergers) {
-      if (NumberOfParticleAttributes != 7) {
-          NumberOfParticleAttributes = 7;
-        }
-      for (j = 3; j < NumberOfParticleAttributes; j++) {
-        ParticleAttribute[j] = new float[NumberOfParticles];
-        for (i=0; i < NumberOfParticles; i++)
-          ParticleAttribute[j][i] = 0;
-          }
-    } 
+    
 
     delete [] temp;
  

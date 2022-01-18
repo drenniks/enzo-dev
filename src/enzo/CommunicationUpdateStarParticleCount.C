@@ -148,7 +148,7 @@ int CommunicationUpdateStarParticleCount(HierarchyEntry *Grids[],
 
     }
 
-    printf("NumberOfStarParticles = %"ISYM"\n", NumberOfStarParticles); 
+    //printf("NumberOfStarParticles = %"ISYM"\n", NumberOfStarParticles); 
 
   }
 

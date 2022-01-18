@@ -827,7 +827,14 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
  
     }
  
- 
+    if (PopIII_ParticleAttributes) {
+          for (j = 3; j < NumberOfParticleAttributes; j++) {
+      ParticleAttribute[j] = new float[NumberOfParticles];
+      for (i=0; i < NumberOfParticles; i++)
+        ParticleAttribute[j][i] = 0;
+          }
+        }
+
     /* Read ParticleAttributes. */
     if (AddParticleAttributes) {
       for (j = 0; j < NumberOfParticleAttributes; j++) {
@@ -882,7 +889,7 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
  
     }
     } // ENDELSE add particle attributes
- 
+  
     delete [] temp;
     delete [] tempPINT;
  

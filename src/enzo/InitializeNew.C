@@ -310,6 +310,7 @@ int InitializeNew(char *filename, HierarchyEntry &TopGrid,
       NumberOfParticleAttributes = 3;
       if (StarMakerTypeIaSNe) NumberOfParticleAttributes++;
       if (StarMakerTypeIISNeMetalField) NumberOfParticleAttributes++;
+      if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
     } else {
       NumberOfParticleAttributes = 0;
     }

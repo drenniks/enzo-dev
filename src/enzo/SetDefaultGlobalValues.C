@@ -1056,6 +1056,7 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   PopIII_NSMExplosionEnergy = 1e50; // erg
   PopIII_NSMDelayTime = 100; // Myr
   PopIII_NSMMetalMass = 0.01;
+  PopIII_ParticleAttributes = FALSE; 
 
 
   return SUCCESS;

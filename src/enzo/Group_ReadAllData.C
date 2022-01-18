@@ -180,11 +180,16 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
       NumberOfParticleAttributes = 3;
       if (StarMakerTypeIaSNe) NumberOfParticleAttributes++;
       AddParticleAttributes = TRUE;
+      if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      PopIII_ParticleAttributes = TRUE; 
     } else {
       NumberOfParticleAttributes = 0;
     }
 
   }
+
+  if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      PopIII_ParticleAttributes = TRUE;
 
   // name is something like /dsgpfs/harkness/NewL7/Dumps/DD0156/DD0156
   // open the hdf file on this processor /dsgpfs/harkness/NewL7/Dumps/DD0156/DD0156.cpu0000, etc.
@@ -501,6 +506,7 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
      this parameter to later data. */
 
   AddParticleAttributes = FALSE;
+  PopIII_ParticleAttributes = FALSE;
 
   /* If we're reseting load balancing (i.e. the host processors), turn
      off the reset flag because we've already done this and don't want

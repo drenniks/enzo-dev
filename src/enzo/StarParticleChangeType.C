@@ -46,7 +46,8 @@ int StarParticleChangeType(Star *AllStars)
             for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar){
                 if (ThisStar->ReturnID() == PopIII_NSMParticleID){
                     ThisStar->SetType(PARTICLE_TYPE_POPIII_BINARY);
-                    PopIII_NSMParticleID = -1; 
+                    PopIII_NSMParticleID = -1;
+                    printf("PopIII star changed to PopIII_Binary. \n");
                 }
             }
         }

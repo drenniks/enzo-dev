@@ -115,6 +115,7 @@ int Star::HitEndpoint(FLOAT Time)
       float initial_mass, initial_mass2;
 
              if (this->FeedbackFlag == DEATH) {
+               printf("PopIII_Binary death. \n");
 
             // Needs to be non-zero (multiply by a small number to retain
             // memory of mass)

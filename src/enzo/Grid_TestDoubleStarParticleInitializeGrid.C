@@ -41,7 +41,7 @@ double ph_Maxwellian(double c_tilda, double vel_unit, double mu, double gamma);
 
 static int PhotonTestParticleCount = 0;
 
-int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
+int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_one,
            float TestStarParticleStarMass_two
 					 float *Initialdt,
 					 FLOAT TestStarParticleStarVelocity_one[],
@@ -141,7 +141,7 @@ int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
   }
 
   if (RadiativeTransfer && (MultiSpecies < 1)) {
-    ENZO_FAIL("Grid_TestStarParticleInitialize: Radiative Transfer but not MultiSpecies set");
+    ENZO_FAIL("Grid_TestDoubleStarParticleInitialize: Radiative Transfer but not MultiSpecies set");
   }
 
   //   Allocate fields for photo ionization and heating rates
@@ -191,6 +191,7 @@ int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
   /* Set number of particles for this grid and allocate space. */
 
   NumberOfParticles = 2;
+  //NumberOfStars = 2;
   NumberOfParticleAttributes = 4;
   this->AllocateNewParticles(NumberOfParticles);
   printf("Allocated %d particles\n", NumberOfParticles);
@@ -212,7 +213,7 @@ int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
 
   ParticleNumber[1] = 1;
   ParticleType[1] = -PopII;
-  ParticleAttribute[1][0] = Time + 1e-7;
+  ParticleAttribute[0][1] = 1.4;
   ParticleMass[1] = CentralMass_two;
 
   /* Set central particle. */ 
@@ -243,14 +244,25 @@ int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
     ENZO_FAIL("Error in grid::FindNewStarParticles.");
     }
 
-  /* Reset particle type to be positive*/
-    for (i = 0; i < NumberOfParticles; i++) {
-      ParticleNumber[i] = i;
-      ParticleType[i] = PopIII;
-    }
+    ParticleNumber[0] = 0;
+    ParticleType[0] = PopIII;
+
+    ParticleNumber[1] = 1;
+    ParticleType[1] = PopII;
+    
+    this->Stars = new Star();
+    this->Stars->type = PopIII;
+
     Star *cstar;
-    for (cstar = Stars; cstar; cstar = cstar->NextStar)
-      cstar->type = PopIII; 
+    cstar = new Star();
+    cstar->type = PopII;
+    cstar->PrevStar = Stars;
+    this->Stars->NextStar = cstar;
+    
+    
+    //Star *cstar;
+    //for (cstar = Stars; cstar; cstar = cstar->NextStar)
+    //  cstar->type = PopIII; 
 
 
   /* Set up the baryon field. */ // need thid
@@ -315,7 +327,7 @@ int grid::TestStarParticleInitializeGrid(float TestStarParticleStarMass_one,
   /* set velocities */ 
  
   for (dim = 0; dim < GridRank; dim++)
-	  BaryonField[vel+dim][n] = Velocity[dim] + TestStarParticleVelocity[dim];
+	  BaryonField[vel+dim][n] = Velocity[dim] + TestStarParticleVelocity_one[dim];
 
   /* Set internal energy if necessary. */ //check
  

@@ -37,7 +37,7 @@ static float PhotonTestInitialFractionHM    = 2.0e-9;
 static float PhotonTestInitialFractionH2I   = 2.0e-20;
 static float PhotonTestInitialFractionH2II  = 3.0e-14;
 
-int TestStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGrid,
+int TestDoubleStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGrid,
 			       TopGridData &MetaData,float *Initialdt)
 {
   const char *DensName = "Density";  /* make const */ 
@@ -85,15 +85,16 @@ int TestStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGri
   float TestStarParticleDensity     = 1.0;
   float TestStarParticleEnergy      = 1.0;
   float TestStarParticleVelocity[3] = {0.0, 0.0, 0.0};
-  FLOAT TestStarParticleStarVelocity[3] = {0.0, 0.0, 0.0};
-  FLOAT TestStarParticleStarPosition[3] = {0.52, 0.52, 0.52};
+  FLOAT TestStarParticleStarVelocity_one[3] = {0.0, 0.0, 0.0};
+  FLOAT TestStarParticleStarPosition_one[3] = {0.25, 0.5, 0.5};
+  FLOAT TestStarParticleStarVelocity_two[3] = {0.0, 0.0, 0.0};
+  FLOAT TestStarParticleStarPosition_two[3] = {0.75, 0.5, 0.5};
   float TestStarParticleBField[3]   = {0.0, 0.0, 0.0};
-  float TestStarParticleStarMass    = 100.0;
+  float TestStarParticleStarMass_one    = 100.0;
+  float TestStarParticleStarMass_two    = 100.0;
   int TestProblemUseMetallicityField = 1;
   float TestProblemInitialMetallicityFraction = 2e-3; // 0.1 Zsun
   float PhotonTestInitialTemperature = 1000;  
-
-
 
 
   TestProblemData.MultiSpecies = MultiSpecies;
@@ -113,16 +114,26 @@ int TestStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGri
 		  &TestStarParticleDensity);
     ret += sscanf(line, "TestStarParticleEnergy = %"FSYM,
 		  &TestStarParticleEnergy);
-    ret += sscanf(line, "TestStarParticleStarMass = %"FSYM,
-		  &TestStarParticleStarMass);
-    ret += sscanf(line,"TestStarParticleStarVelocity = %"PSYM" %"PSYM" %"PSYM, 
-		  &TestStarParticleStarVelocity[0],
-		  &TestStarParticleStarVelocity[1],
-		  &TestStarParticleStarVelocity[2]);
-    ret += sscanf(line,"TestStarParticleStarPosition = %"PSYM" %"PSYM" %"PSYM, 
-		  &TestStarParticleStarPosition[0],
-		  &TestStarParticleStarPosition[1],
-		  &TestStarParticleStarPosition[2]);
+    ret += sscanf(line, "TestStarParticleStarMass_one = %"FSYM,
+		  &TestStarParticleStarMass_one);
+    ret += sscanf(line, "TestStarParticleStarMass_two = %"FSYM,
+		  &TestStarParticleStarMass_two);
+    ret += sscanf(line,"TestStarParticleStarVelocity_one = %"PSYM" %"PSYM" %"PSYM, 
+		  &TestStarParticleStarVelocity_one[0],
+		  &TestStarParticleStarVelocity_one[1],
+		  &TestStarParticleStarVelocity_one[2]);
+    ret += sscanf(line,"TestStarParticleStarPosition_one = %"PSYM" %"PSYM" %"PSYM, 
+		  &TestStarParticleStarPosition_one[0],
+		  &TestStarParticleStarPosition_one[1],
+		  &TestStarParticleStarPosition_one[2]);
+    ret += sscanf(line,"TestStarParticleStarVelocity_two = %"PSYM" %"PSYM" %"PSYM, 
+		  &TestStarParticleStarVelocity_two[0],
+		  &TestStarParticleStarVelocity_two[1],
+		  &TestStarParticleStarVelocity_two[2]);
+    ret += sscanf(line,"TestStarParticleStarPosition_two = %"PSYM" %"PSYM" %"PSYM, 
+		  &TestStarParticleStarPosition_two[0],
+		  &TestStarParticleStarPosition_two[1],
+		  &TestStarParticleStarPosition_two[2]);
     
 
     ret += sscanf(line, "TestProblemUseMetallicityField  = %"ISYM, &TestProblemData.UseMetallicityField);
@@ -147,10 +158,13 @@ int TestStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGri
   /* set up uniform grid as of before explosion */ 
  
   if (TopGrid.GridData->
-      TestStarParticleInitializeGrid(TestStarParticleStarMass,
+      TestDoubleStarParticleInitializeGrid(TestStarParticleStarMass_one,
+             TestStarParticleStarMass_two,
 				     Initialdt, 
-				     TestStarParticleStarVelocity,
-				     TestStarParticleStarPosition,
+				     TestStarParticleStarVelocity_one,
+				     TestStarParticleStarPosition_one,
+             TestStarParticleStarVelocity_two,
+				     TestStarParticleStarPosition_two,
              TestStarParticleDensity,
              TestStarParticleEnergy, 
              TestStarParticleVelocity,
@@ -159,7 +173,7 @@ int TestStarParticleInitialize(FILE *fptr, FILE *Outfptr, HierarchyEntry &TopGri
              PhotonTestInitialFractionHII, PhotonTestInitialFractionHeII,
 	          PhotonTestInitialFractionHeIII, PhotonTestInitialFractionHM,
 	          PhotonTestInitialFractionH2I, PhotonTestInitialFractionH2II) == FAIL)
-    ENZO_FAIL("Error in TestStarParticleInitializeGrid.\n");
+    ENZO_FAIL("Error in TestDoubleStarParticleInitializeGrid.\n");
 
   /* set up field names and units */
   

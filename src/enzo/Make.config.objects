@@ -649,6 +649,7 @@ OBJS_CONFIG_LIB = \
         Grid_TestGravitySphereCheckResults.o \
         Grid_TestGravitySphereInitializeGrid.o \
         Grid_TestOrbitInitializeGrid.o \
+        Grid_TestDoubleStarParticleInitializeGrid.o \
 	Grid_TestStarParticleInitializeGrid.o \
         Grid_TracerParticleCreateParticles.o \
         Grid_TracerParticleOutputData.o \
@@ -938,6 +939,7 @@ OBJS_CONFIG_LIB = \
         TestGravitySphereCheckResults.o \
         TestGravitySphereInitialize.o \
         TestOrbitInitialize.o \
+        TestDoubleStarParticleInitialize.o \
 	TestStarParticleInitialize.o \
         TracerParticleCreation.o \
 	TransposeRegionOverlap.o \

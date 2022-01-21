@@ -246,7 +246,7 @@ int StarParticleAddFeedback(TopGridData *MetaData,
     */
 
     /* Only kill a Pop III star after it has gone SN */
-
+    //breakpoint here -- mass?
     if (cstar->ReturnFeedbackFlag() == SUPERNOVA)
       cstar->SetFeedbackFlag(DEATH);
 

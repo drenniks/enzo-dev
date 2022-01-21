@@ -44,6 +44,7 @@ int StarParticleChangeType(Star *AllStars)
 
         else {
             for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar){
+                //printf("Current Particle ID in StarParticleChangeType = %d \n", ThisStar->ReturnID());
                 if (ThisStar->ReturnID() == PopIII_NSMParticleID){
                     ThisStar->SetType(PARTICLE_TYPE_POPIII_BINARY);
                     PopIII_NSMParticleID = -1;

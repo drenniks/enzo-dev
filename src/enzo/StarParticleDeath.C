@@ -35,7 +35,6 @@
 Star *PopStar(Star * &Node);
 void InsertStarAfter(Star * &Node, Star * &NewNode);
 void DeleteStar(Star * &Node);
-void PrintInfo(void);
 
   /* Check for any stellar deaths */
 
@@ -54,14 +53,13 @@ int StarParticleDeath(LevelHierarchyEntry *LevelArray[], int level,
   while (ThisStar) {
     TimeNow = LevelArray[ThisStar->ReturnLevel()]->GridData->ReturnTime();
     //TimeNow = LevelArray[level]->GridData->ReturnTime();
-    PrintInfo();
+    //ThisStar->PrintInfo();
     death = ThisStar->HitEndpoint(TimeNow);
     MoveStar = PopStar(ThisStar);
-    PrintInfo();
+    //ThisStar->PrintInfo();
 
     if (death == KILL_STAR) {
-      printf('Processor in star death = \n');
-      printf(MyProcessorNumber);
+      printf("Processor in star death = %d \n", MyProcessorNumber);
       MoveStar->MirrorToParticle();
       MoveStar->DeleteCopyInGridGlobal(LevelArray);
       DeleteStar(MoveStar);

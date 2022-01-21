@@ -179,9 +179,7 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
        increase the particle's velocity accordingly. - Ji-hoon Kim, Sep.2009 */
 
 //    printf("grid::AFS: before: cstar->Mass = %lf\n", cstar->Mass); 
-    if (cstar->FeedbackFlag != SUPERNOVA || 
-		cstar->FeedbackFlag != POPIII_BINARY_SN ||
-		cstar->FeedbackFlag != NS_BINARY_SN) {
+    if (cstar->FeedbackFlag == CONT_SUPERNOVA) {
       float old_mass = (float)(cstar->Mass);
       cstar->Mass -= EjectaDensity * DensityUnits * BubbleVolume * pow(LengthUnits,3.0) / SolarMass;  
       float frac = old_mass / cstar->Mass;

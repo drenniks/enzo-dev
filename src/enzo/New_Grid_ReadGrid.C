@@ -507,6 +507,9 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
 	abs_type = ABS(ParticleType[i]);
         if (abs_type < PARTICLE_TYPE_GAS ||
             abs_type > NUM_PARTICLE_TYPES-1) {
+              printf("PARTICLE_TYPE_GAS = %d \n", PARTICLE_TYPE_GAS);
+              printf("NUM_PARTICLE_TYPES = %d \n", NUM_PARTICLE_TYPES);
+              printf("ParticleType[i] = %d \n", ParticleType[i]);
           ENZO_VFAIL("file: %s: particle %"ISYM" has unknown type %"ISYM"\n", name, i, ParticleType[i])
         }
       }
@@ -521,19 +524,19 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
     }
  
  /* Add particle attributes for NSM. */
-    if (PopIII_ParticleAttributes) {
+ //   if (PopIII_ParticleAttributes) {
       //if (NumberOfParticleAttributes != 7) {
       //    NumberOfParticleAttributes = 7;
       //  }
-      for (j = 3; j < NumberOfParticleAttributes; j++) {
-        ParticleAttribute[j] = new float[NumberOfParticles];
-        for (i=0; i < NumberOfParticles; i++)
-          ParticleAttribute[j][i] = 0;
-          }
-    }
+  //    for (j = 3; j < NumberOfParticleAttributes; j++) {
+  //      ParticleAttribute[j] = new float[NumberOfParticles];
+   //     for (i=0; i < NumberOfParticles; i++)
+  //        ParticleAttribute[j][i] = 0;
+  //        }
+  //  }
 
     /* Read ParticleAttributes. */
-    if (AddParticleAttributes) {
+    if (AddParticleAttributes || PopIII_ParticleAttributes) {
       for (j = 0; j < NumberOfParticleAttributes; j++) {
 	ParticleAttribute[j] = new float[NumberOfParticles];
 	for (i=0; i < NumberOfParticles; i++)

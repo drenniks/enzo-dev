@@ -188,8 +188,8 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
 
   }
 
-  if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
-      PopIII_ParticleAttributes = TRUE;
+  //if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+  //    PopIII_ParticleAttributes = TRUE;
 
   // name is something like /dsgpfs/harkness/NewL7/Dumps/DD0156/DD0156
   // open the hdf file on this processor /dsgpfs/harkness/NewL7/Dumps/DD0156/DD0156.cpu0000, etc.

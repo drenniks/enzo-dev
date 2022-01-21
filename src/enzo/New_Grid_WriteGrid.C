@@ -825,7 +825,7 @@ int grid::Group_WriteGrid(FILE *fptr, char *base_name, int grid_id, HDF5_hid_t f
     /* Copy particle attributes to temp and write them. */
 
     for (j = 0; j < NumberOfParticleAttributes; j++) {
-      printf("NumberOfParticleAttributes = %d", NumberOfParticleAttributes);
+      //printf("NumberOfParticleAttributes = %d", NumberOfParticleAttributes);
       this->write_dataset(1, TempIntArray, ParticleAttributeLabel[j],
           group_id, HDF5_REAL, (VOIDP) ParticleAttribute[j], FALSE);
     }

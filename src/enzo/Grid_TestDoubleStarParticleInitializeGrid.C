@@ -42,7 +42,7 @@ double ph_Maxwellian(double c_tilda, double vel_unit, double mu, double gamma);
 static int PhotonTestParticleCount = 0;
 
 int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_one,
-           float TestStarParticleStarMass_two
+           float TestStarParticleStarMass_two,
 					 float *Initialdt,
 					 FLOAT TestStarParticleStarVelocity_one[],
 					 FLOAT TestStarParticleStarPosition_one[],
@@ -62,7 +62,8 @@ int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_on
 {
   /* declarations */ // grid_initializeuniformgrid.c
 
-  float CentralMass = 1.0;
+  float CentralMass_one = 1.0;
+  float CentralMass_two = 1.0;
 
   int dim, i, j, k, m, field, size, active_size, index, cindex;
 
@@ -191,7 +192,7 @@ int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_on
   /* Set number of particles for this grid and allocate space. */
 
   NumberOfParticles = 2;
-  //NumberOfStars = 2;
+  NumberOfStars = 2;
   NumberOfParticleAttributes = 4;
   this->AllocateNewParticles(NumberOfParticles);
   printf("Allocated %d particles\n", NumberOfParticles);
@@ -213,7 +214,7 @@ int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_on
 
   ParticleNumber[1] = 1;
   ParticleType[1] = -PopII;
-  ParticleAttribute[0][1] = 1.4;
+  ParticleAttribute[0][1] = Time + 1e-7;
   ParticleMass[1] = CentralMass_two;
 
   /* Set central particle. */ 
@@ -327,7 +328,7 @@ int grid::TestDoubleStarParticleInitializeGrid(float TestStarParticleStarMass_on
   /* set velocities */ 
  
   for (dim = 0; dim < GridRank; dim++)
-	  BaryonField[vel+dim][n] = Velocity[dim] + TestStarParticleVelocity_one[dim];
+	  BaryonField[vel+dim][n] = Velocity[dim] + TestStarParticleVelocity[dim];
 
   /* Set internal energy if necessary. */ //check
  

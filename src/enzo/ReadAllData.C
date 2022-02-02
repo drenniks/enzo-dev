@@ -149,8 +149,11 @@ int ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData,
       if (StarMakerTypeIaSNe) NumberOfParticleAttributes++;
       if (StarMakerTypeIISNeMetalField) NumberOfParticleAttributes++;
       AddParticleAttributes = TRUE;
-      if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      if (PopIII_NeutronStarMergers == 1) {
+      NumberOfParticleAttributes += 3;
       PopIII_ParticleAttributes = TRUE;
+      printf("ReadAllData.C: NumberOfParticleAttributes = %d \n", NumberOfParticleAttributes);
+      }
     } else {
       NumberOfParticleAttributes = 0;
     }

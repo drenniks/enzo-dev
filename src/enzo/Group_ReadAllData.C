@@ -180,8 +180,11 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
       NumberOfParticleAttributes = 3;
       if (StarMakerTypeIaSNe) NumberOfParticleAttributes++;
       AddParticleAttributes = TRUE;
-      if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
+      if (PopIII_NeutronStarMergers == 1) { 
+      NumberOfParticleAttributes += 3;
       PopIII_ParticleAttributes = TRUE; 
+      printf("Group_ReadAllData.C: NumberOfParticleAttributes = %d \n", NumberOfParticleAttributes);
+      }
     } else {
       NumberOfParticleAttributes = 0;
     }

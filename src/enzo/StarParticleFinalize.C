@@ -85,12 +85,16 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
 
   CommunicationUpdateStarParticleCount(Grids, MetaData, NumberOfGrids,
 				       TotalStarParticleCountPrevious);
-
+  
   /* Update position and velocity of star particles from the actual
      particles */
 
-  for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar)
+  for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar) {
+    ThisStar->PrintInfo();
     ThisStar->UpdatePositionVelocity();
+  }
+
+  
 
   /* Check to see if NSM model is turned on. If so, run check on Particle IDs to change particle types. */
 

@@ -33,16 +33,22 @@ void grid::SetNewParticleIndex(int &NumberCount1, PINT &NumberCount2)
       abstype = ABS(ParticleType[n]);
       if (abstype == PARTICLE_TYPE_STAR ||
 	  (abstype >= PARTICLE_TYPE_MUST_REFINE &&
-	   abstype != PARTICLE_TYPE_MBH))
+	   abstype != PARTICLE_TYPE_NEUTRON_STAR_BINARY))
 	ParticleNumber[n] = NumberCount1++ + NumberCount2;
       else 
 	ParticleNumber[n] = NumberCount1 + NumberCount2++;
       printf("New star particle index = %d (%d %d)\n",
 	     ParticleNumber[n], NumberCount1, NumberCount2);
+      printf("SetNewParticleIndex: ParticleType[n] = %d \n", ParticleType[n]);
     }
-    
-  return;
 }
+
+  for (n = 0; n < NumberOfParticles; n++) {
+    if (ParticleNumber[n] == INT_UNDEFINED) {
+      printf("Particle number %d = %d \n", n, INT_UNDEFINED);
+    }
+  }
+  return;
 }
 
 #define NO_DEBUG

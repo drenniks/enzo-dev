@@ -468,9 +468,9 @@ extern "C" void FORTRAN_NAME(cluster_maker)
    float *mp, float *tdp, float *tcp, float *metalf, 
    int *type, int *ctype, float *justburn, int *iradtrans,
    int *imetalSNIa, float *metalSNIa, float *metalfSNIa,
-   int *imetalNSM, float *metalNSM, float*metalfNSM,
-   float *metalP2, float*metalfP2,
-   float *metalP3, float*metalfP3);
+   int *imetalNSM, float *metalNSM, float *metalfNSM,
+   float *metalP2, float *metalfP2,
+   float *metalP3, float *metalfP3);
 
 
 int sink_maker(int *nx, int *ny, int *nz, int *size,
@@ -997,6 +997,20 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
 	StarClusterLifeTime = FLOAT_UNDEFINED;
 
       NumberOfNewParticlesSoFar = NumberOfNewParticles;
+      float *ParticleTypeIaMetals = NULL;
+      float *ParticlePop2Metals = NULL;
+      float *ParticlePop3Metals = NULL;
+      float *ParticlerProcMetals = NULL;
+      
+      if (StarMakerTypeIaSNe) {
+         ParticleTypeIaMetals = tg->ParticleAttribute[3];
+      }
+      if (PopIII_NeutronStarMergers) {
+         ParticlerProcMetals = tg->ParticleAttribute[3];
+         ParticlePop2Metals = tg->ParticleAttribute[4];
+         ParticlePop3Metals = tg->ParticleAttribute[5];
+         
+      }
 
       FORTRAN_NAME(cluster_maker)
 	(GridDimension, GridDimension+1, GridDimension+2, 
@@ -1018,10 +1032,10 @@ int grid::StarParticleHandler(HierarchyEntry* SubgridPointer, int level,
 	 tg->ParticleAttribute[1], tg->ParticleAttribute[0], 
 	 tg->ParticleAttribute[2], tg->ParticleType, &StarClusterType, 
 	 &RadiationData.IntegratedStarFormation, &RadiativeTransfer,
-	 &StarMakerTypeIaSNe, BaryonField[MetalIaNum], tg->ParticleAttribute[3],
-    &PopIII_NeutronStarMergers, BaryonField[NSMNum], tg->ParticleAttribute[4],
-    BaryonField[SNColourNum], tg->ParticleAttribute[5],
-    BaryonField[MetalNum], tg->ParticleAttribute[6]);
+	 &StarMakerTypeIaSNe, BaryonField[MetalIaNum], ParticleTypeIaMetals,
+    &PopIII_NeutronStarMergers, BaryonField[NSMNum], ParticlerProcMetals,
+    BaryonField[SNColourNum], ParticlePop2Metals,
+    BaryonField[MetalNum], ParticlePop3Metals);
     }
 
     if (STARMAKE_METHOD(MBH_PARTICLE)) {

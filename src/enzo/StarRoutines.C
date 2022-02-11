@@ -423,7 +423,6 @@ void Star::UpdatePositionVelocity(void)
         break;
       }
     }
-    printf("_id = %d \n", _id);
     assert(_id >= 0);
     for (dim = 0; dim < MAX_DIMENSION; dim++) {
       pos[dim] = CurrentGrid->ParticlePosition[dim][_id];

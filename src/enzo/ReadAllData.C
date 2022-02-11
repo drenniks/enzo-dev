@@ -160,8 +160,10 @@ int ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData,
 
   }
 
-  //if (PopIII_NeutronStarMergers == 1) NumberOfParticleAttributes += 3;
-  //    PopIII_ParticleAttributes = TRUE;
+  if (PopIII_NeutronStarMergers == 1) {
+      NumberOfParticleAttributes += 3;
+      PopIII_ParticleAttributes = TRUE;
+  }
   printf("NumberOfParticleAttributes = %d \n", NumberOfParticleAttributes);
 
   /* Read Boundary condition info. */

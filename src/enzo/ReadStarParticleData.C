@@ -35,8 +35,6 @@ int ReadStarParticleData(FILE *fptr, hid_t Hfile_id, FILE *log_fptr)
  
   /* read in number data. */
 
-  if (!AddParticleAttributes) {
-
     if (HierarchyFileInputFormat % 2 == 0) {
       HDF5_ReadAttribute(Hfile_id, "NumberOfStarParticles", NumberOfStarParticles, log_fptr);
       HDF5_ReadAttribute(Hfile_id, "NumberOfActiveParticles", NumberOfActiveParticles, log_fptr);
@@ -58,12 +56,6 @@ int ReadStarParticleData(FILE *fptr, hid_t Hfile_id, FILE *log_fptr)
         //      ENZO_FAIL("Error reading NumberOfActiveParticles.\n");
       }
     }
-
-  } else  {
-    NumberOfStarParticles = 0;
-    NumberOfActiveParticles = 0;
-    NextActiveParticleID = INT_UNDEFINED;
-  }
   
   NumberOfOtherParticles = 0; 
 

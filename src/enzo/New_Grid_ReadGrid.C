@@ -97,7 +97,7 @@ int grid::Group_ReadGrid(FILE *fptr, int GridID, HDF5_hid_t file_id,
      "particle_jet_y", "particle_jet_z", "typeia_fraction"};
 #else
   char *ParticleAttributeLabel[] = 
-    {"creation_time", "dynamical_time", "metallicity_fraction", "typeia_fraction", "NSM_metallicity_fraction", "P3_metallicity_fraction", "P2_metallicity_fraction"};
+    {"creation_time", "dynamical_time", "metallicity_fraction", "NSM_metallicity_fraction", "P3_metallicity_fraction", "P2_metallicity_fraction"};
 #endif
 
   int ReadOnlyActive = TRUE;

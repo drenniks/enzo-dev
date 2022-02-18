@@ -193,7 +193,7 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
 
   if (PopIII_NeutronStarMergers == 1) {
       NumberOfParticleAttributes += 3;
-      PopIII_ParticleAttributes = TRUE;
+  //    PopIII_ParticleAttributes = TRUE;
   }
 
   // name is something like /dsgpfs/harkness/NewL7/Dumps/DD0156/DD0156

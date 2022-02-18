@@ -417,12 +417,11 @@ void Star::UpdatePositionVelocity(void)
   int _id = -1;
   if (CurrentGrid != NULL && type >= 0) { // on local processor and active
     // Search for particle
-    for (i = 0; i < CurrentGrid->NumberOfParticles; i++) {
+    for (i = 0; i < CurrentGrid->NumberOfParticles; i++)
       if (Identifier == CurrentGrid->ParticleNumber[i]) {
         _id = i;
         break;
       }
-    }
     assert(_id >= 0);
     for (dim = 0; dim < MAX_DIMENSION; dim++) {
       pos[dim] = CurrentGrid->ParticlePosition[dim][_id];

@@ -90,6 +90,7 @@ int StarParticleFinalize(HierarchyEntry *Grids[], TopGridData *MetaData,
      particles */
 
   for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar) {
+    ThisStar->PrintInfo();
     ThisStar->UpdatePositionVelocity();
   }
 

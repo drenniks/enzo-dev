@@ -75,10 +75,16 @@ int StarParticleInitialize(HierarchyEntry *Grids[], TopGridData *MetaData,
 	}
 
   /* Create a master list of all star particles */
-
+  
   if (StarParticleFindAll(LevelArray, AllStars) == FAIL) {
         ENZO_FAIL("Error in StarParticleFindAll.");
   }
+
+  Star *ThisStar;
+    for (ThisStar = AllStars; ThisStar; ThisStar = ThisStar->NextStar){
+                  printf("StarParticleInitialize.c: Particle_ID = %d \n", ThisStar->ReturnID());
+    }
+  
 
   if (MetaData->FirstTimestepAfterRestart == FALSE) {
 

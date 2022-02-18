@@ -49,6 +49,7 @@ int grid::FindAllStarParticles(int level)
   
   for (i = 0; i < NumberOfParticles; i++) {
     //StarType = abs(ParticleType[i]);
+	//printf("Grid_FindAllStarParticles.C: ParticleType[%d] = %d \n", i, ParticleType[i]);
     if (ParticleType[i] == PARTICLE_TYPE_SINGLE_STAR ||
 	ParticleType[i] == PARTICLE_TYPE_BLACK_HOLE ||
 	ParticleType[i] == PARTICLE_TYPE_CLUSTER ||

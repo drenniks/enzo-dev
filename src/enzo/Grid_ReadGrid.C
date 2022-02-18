@@ -84,7 +84,7 @@ int grid::ReadGrid(FILE *fptr, int GridID, char DataFilename[],
        "particle_jet_y", "particle_jet_z", "typeia_fraction"};
 #else
     char *ParticleAttributeLabel[] = 
-      {"creation_time", "dynamical_time", "metallicity_fraction", "typeia_fraction", "NSM_metallicity_fraction", "P3_metallicity_fraction", "P2_metallicity_fraction"};
+      {"creation_time", "dynamical_time", "metallicity_fraction", "NSM_metallicity_fraction", "P3_metallicity_fraction", "P2_metallicity_fraction"};
 #endif
 
 #ifdef USE_HDF4
@@ -982,13 +982,7 @@ int grid::ReadGrid(FILE *fptr, int GridID, char DataFilename[],
 	  
 	} 
 	
-	if (PopIII_ParticleAttributes) {
-          for (j = 3; j < NumberOfParticleAttributes; j++) {
-      ParticleAttribute[j] = new float[NumberOfParticles];
-      for (i=0; i < NumberOfParticles; i++)
-        ParticleAttribute[j][i] = 0;
-          }
-        }
+	
 
 	/* Read ParticleAttributes. */
 	if (AddParticleAttributes) {
@@ -1028,6 +1022,15 @@ int grid::ReadGrid(FILE *fptr, int GridID, char DataFilename[],
 	  }
 	} // ENDELSE AddParticleAttributes 
 	
+	if (PopIII_ParticleAttributes) {
+          for (j = 3; j < NumberOfParticleAttributes; j++) {
+      ParticleAttribute[j] = new float[NumberOfParticles];
+      for (i=0; i < NumberOfParticles; i++)
+        ParticleAttribute[j][i] = 0;
+          }
+        }
+
+
 	delete [] temp;
 	delete [] tempPINT;
       } // (TryHDF5)

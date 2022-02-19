@@ -192,7 +192,9 @@ int Group_ReadAllData(char *name, HierarchyEntry *TopGrid, TopGridData &MetaData
   }
 
   if (PopIII_NeutronStarMergers == 1) {
-      NumberOfParticleAttributes += 3;
+      if (NumberOfParticleAttributes != 6){
+        NumberOfParticleAttributes += 3;
+      }
   //    PopIII_ParticleAttributes = TRUE;
   }
 

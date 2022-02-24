@@ -179,7 +179,7 @@ int Star::HitEndpoint(FLOAT Time)
         this->type = BlackHole;
         this->BirthTime = Time;
         this->FeedbackFlag = NO_FEEDBACK;
-        this->Mass *= tiny_number; 
+        //this->Mass *= tiny_number; 
         result = NO_DEATH;
       //}
       }

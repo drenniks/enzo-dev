@@ -852,8 +852,8 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
   if (cstar->FeedbackFlag == FORMATION) {
 
     index = 0;
-	printf("AddFeedbackSphere: cstar->type = %d \n", cstar->type);
-	printf("AddFeedbackSphere: cstar->Identifier = %d \n", cstar->Identifier);
+	//printf("AddFeedbackSphere: cstar->type = %d \n", cstar->type);
+	//printf("AddFeedbackSphere: cstar->Identifier = %d \n", cstar->Identifier);
     //if (cstar->type == PopII)
     //MinimumTemperature = (MultiSpecies > 1) ? 1e3 : 1e4;
 

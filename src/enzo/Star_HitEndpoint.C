@@ -176,11 +176,8 @@ int Star::HitEndpoint(FLOAT Time)
       //float age;
       //age = Time - this->BirthTime;
       //if (age >= PopIII_NSMDelayTime){
-        this->type = BlackHole;
-        this->BirthTime = Time;
-        this->FeedbackFlag = NO_FEEDBACK;
-        //this->Mass *= tiny_number; 
-        result = NO_DEATH;
+        this->type = PARTICLE_TYPE_DARK_MATTER;
+        result = KILL_STAR;
       //}
       }
       else {

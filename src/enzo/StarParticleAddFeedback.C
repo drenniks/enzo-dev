@@ -264,6 +264,11 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 
     AddedFeedback[count] = true;
 
+    if (CellsModified > 10000) {
+      printf("Modifying lots of cells! \n");
+      cstar->PrintInfo();
+    }
+
 // #ifdef UNUSED
     temp_int = CellsModified;
     MPI_Reduce(&temp_int, &CellsModified, 1, MPI_INT, MPI_SUM, ROOT_PROCESSOR,
@@ -282,11 +287,11 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 	fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 		"Energy = %"GSYM"  , skip = %"ISYM"\n",
 		cstar->ReturnID(), level, EjectaThermalEnergy, SkipMassRemoval);
-      printf("Energy = %d \n", EjectaThermalEnergy);
+      fprintf(stdout, "Energy = %"GSYM" \n", EjectaThermalEnergy);
       fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
-	      "changed %"ISYM" cells.  AddedFeedback[%d] = %d\n", 
+	      "changed %"ISYM" cells.  AddedFeedback[%d] = %d, Radius = %"GSYM" pc\n", 
 	      cstar->ReturnID(), level, CellsModified, 
-	      count, AddedFeedback[count]);
+	      count, AddedFeedback[count], influenceRadius*LengthUnits/pc_cm);
     }
 // #endif
     

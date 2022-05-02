@@ -296,6 +296,7 @@ int grid::AddFeedbackSphere(Star *cstar, int level, float radius, float DensityU
 
   }  // END Supernova
 
+
   /***********************************************************************
                                 MBH_THERMAL
   ************************************************************************/

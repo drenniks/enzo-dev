@@ -42,7 +42,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
 			     bool &MarkedSubgrids)
 {
 
-  float values[7];
+  float values[8];
   float AccretedMass, DynamicalTime = 0, AvgDensity, AvgVelocity[MAX_DIMENSION];
   int StarType, i, l, dim, FirstLoop = TRUE, SphereTooSmall, 
     MBHFeedbackThermalRadiusTooSmall;
@@ -96,6 +96,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
   MassEnclosed = 0;
   Metallicity2 = 0;
   Metallicity3 = 0;
+  Metallicity4 = 0;
   ColdGasMass = 0;
   for (dim = 0; dim < MAX_DIMENSION; dim++)
     AvgVelocity[dim] = 0.0;
@@ -122,6 +123,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     ShellMass = 0;
     ShellMetallicity2 = 0;
     ShellMetallicity3 = 0;
+    ShellMetallicity4 = 0;
     ShellColdGasMass = 0;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
       ShellVelocity[dim] = 0.0;
@@ -165,10 +167,10 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     values[3] = ShellColdGasMass;
     values[4] = ShellMetallicity4;
     for (dim = 0; dim < MAX_DIMENSION; dim++)
-      values[4+dim] = ShellVelocity[dim];
+      values[5+dim] = ShellVelocity[dim];
 
     LCAPERF_START("star_FindFeedbackSphere_Sum");
-    CommunicationAllSumValues(values, 7);
+    CommunicationAllSumValues(values, 8);
     LCAPERF_STOP("star_FindFeedbackSphere_Sum");
 
     ShellMetallicity2 = values[0];
@@ -177,7 +179,7 @@ int Star::FindFeedbackSphere(LevelHierarchyEntry *LevelArray[], int level,
     ShellColdGasMass = values[3];
     ShellMetallicity4 = values[4];
     for (dim = 0; dim < MAX_DIMENSION; dim++)
-      ShellVelocity[dim] = values[4+dim];
+      ShellVelocity[dim] = values[5+dim];
 
     MassEnclosed += ShellMass;
     ColdGasMass += ShellColdGasMass;

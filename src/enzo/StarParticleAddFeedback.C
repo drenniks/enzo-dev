@@ -264,21 +264,18 @@ int StarParticleAddFeedback(TopGridData *MetaData,
 
     AddedFeedback[count] = true;
 
-    if (CellsModified > 10000) {
-      printf("Modifying lots of cells! \n");
-      cstar->PrintInfo();
-    }
-
 // #ifdef UNUSED
     temp_int = CellsModified;
-    MPI_Reduce(&temp_int, &CellsModified, 1, MPI_INT, MPI_SUM, ROOT_PROCESSOR,
-	       MPI_COMM_WORLD);
+    //MPI_Reduce(&temp_int, &CellsModified, 1, IntDataType, MPI_SUM, ROOT_PROCESSOR,
+	  //     MPI_COMM_WORLD);
 
     if (debug) {
-      if (cstar->ReturnFeedbackFlag() != FORMATION)
+      if (cstar->ReturnFeedbackFlag() != FORMATION) {
 	fprintf(stdout, "StarParticleAddFeedback[%"ISYM"][%"ISYM"]: "
 		"Radius = %"GSYM" pc\n",
 		cstar->ReturnID(), level, influenceRadius*LengthUnits/pc_cm);
+    fprintf(stdout, "CellsModified = %"ISYM" \n", CellsModified);
+      }
       if (cstar->ReturnFeedbackFlag() == DEATH || 
 
 	  cstar->ReturnFeedbackFlag() == CONT_SUPERNOVA ||

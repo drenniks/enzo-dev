@@ -1056,7 +1056,12 @@ int SetDefaultGlobalValues(TopGridData &MetaData)
   PopIII_NSMExplosionEnergy = 1e50; // erg
   PopIII_NSMDelayTime = 100; // Myr
   PopIII_NSMMetalMass = 0.01;
-  PopIII_ParticleAttributes = FALSE; 
+  PopIII_ParticleAttributes = FALSE;
+  PopIII_NSM_IMF = FALSE; 
+  NSMLowerMassCutoff            = 20.0;
+  NSMUpperMassCutoff            = 30.0;
+  PopIII_NSM_Seed    = INT_UNDEFINED;
+  NSM_IMFData = NULL;
 
 
   return SUCCESS;

@@ -1212,5 +1212,6 @@ EXTERN float PopIII_NSMExplosionEnergy;
 EXTERN float PopIII_NSMDelayTime;
 EXTERN float PopIII_NSMMetalMass;
 EXTERN int PopIII_ParticleAttributes;
+EXTERN int PopIII_NSM_IMF;
 
 #endif

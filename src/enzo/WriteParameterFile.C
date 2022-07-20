@@ -1280,11 +1280,6 @@ int WriteParameterFile(FILE *fptr, TopGridData &MetaData, char *name = NULL)
   fprintf(fptr, "PopIII_NSMExplosionEnergy       = %"GSYM"\n", PopIII_NSMExplosionEnergy);
   fprintf(fptr, "PopIII_NSMDelayTime             = %"GSYM"\n", PopIII_NSMDelayTime);
   fprintf(fptr, "PopIII_NSMMetalMass             = %"GSYM"\n", PopIII_NSMMetalMass);
-  fprintf(fptr, "PopIII_NSM_IMF                  = %"ISYM"\n", PopIII_NSM_IMF);
-  fprintf(fptr, "NSMMassRange                       = %"FSYM" %"FSYM"\n",
-          NSMLowerMassCutoff, NSMUpperMassCutoff);
-  fprintf(fptr, "PopIII_NSM_Seed             = %"ISYM"\n",
-          PopIII_NSM_Seed);
 
   /* Output current time */
   time_t ID;

@@ -609,7 +609,6 @@ typedef long long int   HDF5_hid_t;
 /* Number of entries in the Pop III IMF lookup table */
 
 #define IMF_TABLE_ENTRIES 1000
-#define NSM_IMF_TABLE_ENTRIES 30
 
 #ifdef USE_MPI
 #else /* USE_MPI */

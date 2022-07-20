@@ -90,10 +90,6 @@ SPEXTERN float PopIIIColorMass;
 SPEXTERN int   PopIIIUseHypernova;
 SPEXTERN int   PopIIISupernovaExplosions;
 SPEXTERN int   PopIIIOutputOnFeedback;
-SPEXTERN int   NSMLowerMassCutoff;
-SPEXTERN int   NSMUpperMassCutoff;
-SPEXTERN int   PopIII_NSM_Seed;
-SPEXTERN float *NSM_IMFData;
 
 SPEXTERN int    StarClusterUseMetalField;
 SPEXTERN int    StarClusterHeliumIonization;

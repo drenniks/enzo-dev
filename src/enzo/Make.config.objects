@@ -891,7 +891,6 @@ OBJS_CONFIG_LIB = \
         StarParticleInitialize.o \
         StarParticleMergeNew.o \
         StarParticleMergeMBH.o \
-        StarParticlePopIII_ForceMassInitialize.o \
 	StarParticlePopIII_IMFInitialize.o \
 	StarParticleSetRefinementLevel.o \
         StarParticleSubtractAccretedMass.o \

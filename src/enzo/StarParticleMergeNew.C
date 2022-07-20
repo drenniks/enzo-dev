@@ -173,7 +173,7 @@ int StarParticleMergeNew(LevelHierarchyEntry *LevelArray[], Star *&AllStars)
      The only time a Pop III star particle has a negative type and no
      feedback flag is the first timestep it exists. */
 
-  if (PopIIIInitialMassFunction == TRUE || PopIII_NSM_IMF == TRUE) {
+  if (PopIIIInitialMassFunction == TRUE) {
     ThisStar = AllStars;
     while (ThisStar) {
       if (ThisStar->ReturnType() == -PopIII &&

@@ -26,7 +26,6 @@
 #include "LevelHierarchy.h"
 
 int StarParticlePopIII_IMFInitialize(void);
-int StarParticlePopIII_ForceMassInitialize(void);
 int StarParticleFindAll(LevelHierarchyEntry *LevelArray[], Star *&AllStars);
 int StarParticleMergeNew(LevelHierarchyEntry *LevelArray[], Star *&AllStars);
 int StarParticleMergeMBH(LevelHierarchyEntry *LevelArray[], Star *&AllStars);
@@ -59,8 +58,6 @@ int StarParticleInitialize(HierarchyEntry *Grids[], TopGridData *MetaData,
 
   if (PopIIIInitialMassFunction)
     StarParticlePopIII_IMFInitialize();
-  if (PopIII_NSM_IMF)
-    StarParticlePopIII_ForceMassInitialize();
 
   int level, grids;
   Star *cstar;

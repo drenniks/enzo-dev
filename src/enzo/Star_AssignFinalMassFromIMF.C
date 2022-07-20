@@ -33,7 +33,7 @@ int Star::AssignFinalMassFromIMF(float TimeUnits)
 {
   if (PopIII_NSM_IMF == TRUE){
     if (PopIIIInitialMassFunctionCalls == 0 || PopIIIInitialMassFunctionCalls == 1){
-      printf("Setting mass of first two PopIII stars to fall in desired mass range. \n");
+      fprintf("Setting mass of first two PopIII stars to fall in desired mass range. \n");
       unsigned_long_int random_int = mt_random();
       const int max_random = (1<<16);
       float x = (float) (random_int%max_random) / (float) (max_random);

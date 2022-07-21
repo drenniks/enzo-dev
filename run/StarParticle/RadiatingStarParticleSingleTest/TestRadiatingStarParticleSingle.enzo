@@ -27,7 +27,7 @@ DensityUnits           = 1.0e-24  // 1 part/cc
 #
 #  set I/O and stop/start parameters
 #
-StopTime               = 2
+StopTime               = 1
 dtDataDump             = 0.1
 #
 #  set Hydro parameters
@@ -86,8 +86,7 @@ PopIIISupernovaUseColour = 1
 
 
 #
-#  NSM Model Parameters
+#  Rotating Pop III Stars 
 #
 
-PopIII_NeutronStarMergers = 0
-PopIII_NSMParticleID = 0
+PopIII_Rotating = 1

@@ -301,6 +301,8 @@ int InitializeNew(char *filename, HierarchyEntry &TopGrid,
     ENZO_FAIL("Error in ReadParameterFile.");
   }
 
+  printf("(InitializeNew) PopIII_NSMExplosionEnergy = %"GSYM"\n", PopIII_NSMExplosionEnergy);
+
   //Ensure old style MHD_CT parameter files still work.
   if( MHDCT_ParameterJuggle() == FAIL ){
     ENZO_FAIL("Invalid parameter from old style MHD CT");

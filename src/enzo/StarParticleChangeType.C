@@ -49,6 +49,7 @@ int StarParticleChangeType(Star *AllStars)
                     ThisStar->SetType(PARTICLE_TYPE_POPIII_BINARY);
                     PopIII_NSMParticleID = -1;
                     printf("PopIII star changed to PopIII_Binary. \n");
+                    printf("PopIII_NSMExplosionEnergy = %"GSYM"\n", PopIII_NSMExplosionEnergy);
                 }
             }
         }

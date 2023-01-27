@@ -150,6 +150,8 @@ int Star::ComputePhotonRates(const float TimeUnits, int &nbins, float E[], doubl
 #ifdef TRANSFER    
     if (!RadiativeTransferOpticallyThinH2) nbins++;
 #endif
+    x = log10((float)(_mass/2.0));
+    x2 = x*x;
     E[0] = 28.0;
     E[1] = 30.0;
     E[2] = 58.0;

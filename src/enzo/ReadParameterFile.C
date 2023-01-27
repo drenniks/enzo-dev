@@ -1371,7 +1371,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     // Parameters for Neutron Star Merger from PopIII stars
     ret += sscanf(line, "PopIII_NeutronStarMergers  = %"ISYM, &PopIII_NeutronStarMergers);
     ret += sscanf(line, "PopIII_NSMParticleID       = %"ISYM, &PopIII_NSMParticleID);
-    ret += sscanf(line, "PopIII_NSMExplosionEnergy  = %"GSYM, &PopIII_NSMExplosionEnergy);
+    ret += sscanf(line, "PopIII_NSMExplosionEnergy  = %"FSYM, &PopIII_NSMExplosionEnergy);
     ret += sscanf(line, "PopIII_NSMDelayTime        = %"FSYM, &PopIII_NSMDelayTime);
     ret += sscanf(line, "PopIII_NSMMetalMass        = %"FSYM, &PopIII_NSMMetalMass);
 
@@ -2111,7 +2111,7 @@ int ReadParameterFile(FILE *fptr, TopGridData &MetaData, float *Initialdt)
     }
   } // if(StarMakerMinimumMassRamp > 0)
 
-
+  fprintf(stdout, "PopIII_NSMExplosionEnergy %"FSYM"\n", PopIII_NSMExplosionEnergy);
 
   return SUCCESS;
 
